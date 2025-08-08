@@ -356,4 +356,224 @@
     .footer-inner { flex-direction: column; gap: 1.5rem; align-items: flex-start;}
   }
   .font-playfair { font-family: var(--font-title);}
+
+/*3 Extra Components */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #3a4a3a;
+    background: #f8f9f7;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #5a6b4f;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #6b7b60;
+}
+
+/* Three Phases Section */
+.three-phases {
+    padding: 4rem 0;
+    background: #f0f2ef;
+}
+
+.phases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.phase-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(90, 107, 79, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.phase-card:hover {
+    transform: translateY(-5px);
+}
+
+.phase-badge {
+    background: #5a6b4f;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.phase-card h3 {
+    color: #5a6b4f;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.phase-duration {
+    color: #7a8b6f;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.phase-card ul {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.phase-card li {
+    padding: 0.3rem 0;
+    color: #6b7b60;
+}
+
+.phase-card li:before {
+    content: "✓ ";
+    color: #5a6b4f;
+    font-weight: bold;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 4rem 0;
+    background: white;
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e0e4dd;
+    margin-bottom: 1rem;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem 0;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #5a6b4f;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question:hover {
+    color: #4a5b3f;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    color: #7a8b6f;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer.active {
+    max-height: 200px;
+    padding-bottom: 1.5rem;
+}
+
+.faq-answer p {
+    color: #6b7b60;
+    line-height: 1.6;
+}
+
+/* Community Section */
+.community {
+    padding: 4rem 0;
+    background: #e8ebe5;
+    text-align: center;
+}
+
+.community-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefit {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(90, 107, 79, 0.1);
+}
+
+.benefit h3 {
+    color: #5a6b4f;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.benefit p {
+    color: #6b7b60;
+    font-size: 0.9rem;
+}
+
+/* Button */
+.btn {
+    background: #5a6b4f;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #4a5b3f;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .phases-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .community-benefits {
+        grid-template-columns: 1fr;
+    }
+}
   

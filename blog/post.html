@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sthir — Post</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="../styles.css" rel="stylesheet" />
+  <link href="./blog.css" rel="stylesheet" />
+  <style>
+    .wrap{max-width:760px;margin:0 auto;padding:24px}
+    .meta{color:#64748b;margin:8px 0 16px}
+    #err{margin-top:12px;padding:12px;border:1px solid #fecaca;background:#fff1f2;border-radius:10px;color:#991b1b;display:none}
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="../" class="brand font-playfair">Sthir</a>
+      <ul class="nav-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#services">Programs</a></li>
+        <li><a href="../#philosophy">Philosophy</a></li>
+        <li><a href="../#ai-tools">AI Tools</a></li>
+        <li><a href="../#testimonials">Testimonials</a></li>
+        <li><a href="../#contact">Contact</a></li>
+        <li><a href="./">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <article id="post">
+      <h1 id="title">Loading…</h1>
+      <div id="meta" class="meta"></div>
+      <div id="content" class="content"></div>
+      <div id="err"></div>
+    </article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+  <script>
+  (function(){
+    var WP = 'https://public-api.wordpress.com/wp/v2/sites/Sitsthir.wordpress.com';
+    var params = new URLSearchParams(location.search);
+    var slug = params.get('slug');
+
+    var elTitle = document.getElementById('title');
+    var elMeta  = document.getElementById('meta');
+    var elCont  = document.getElementById('content');
+    var errBox  = document.getElementById('err');
+
+    function showError(msg){
+      errBox.style.display='block';
+      errBox.innerHTML='<strong>Couldn’t load post.</strong><br><small>'+msg.replace(/</g,'&lt;')+'</small>';
+    }
+
+    function loadPost(){
+      if (!slug){ elTitle.textContent='Post not found'; return; }
+      fetch(WP + '/posts?slug=' + encodeURIComponent(slug))
+        .then(function(r){
+          if(!r.ok){ return r.text().then(function(t){ throw new Error('HTTP '+r.status+' — '+t); }); }
+          return r.json();
+        })
+        .then(function(arr){
+          var p = Array.isArray(arr) ? arr[0] : null;
+          if (!p){ elTitle.textContent='Post not found'; return; }
+          document.title = (p.title && p.title.rendered ? p.title.rendered : 'Post') + ' — Sthir';
+          elTitle.innerHTML = p.title && p.title.rendered ? p.title.rendered : '(untitled)';
+          elMeta.textContent = p.date ? new Date(p.date).toLocaleDateString() : '';
+          elCont.innerHTML = DOMPurify.sanitize((p.content && p.content.rendered) || '', {USE_PROFILES:{html:true}});
+        })
+        .catch(function(err){ console.error(err); showError(err.message); });
+    }
+
+    loadPost();
+  })();
+  </script>
+</body>
+</html>

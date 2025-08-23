@@ -1,0 +1,75 @@
+/* blog/blog.css — vertical professional feed */
+
+.blog {
+    --ink:#0b1220; --muted:#64748b; --edge:#e6e8ec; --paper:#fbfdfb; --brand:#065f46;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  
+  /* Header intro */
+  .blog .header-intro { text-align:center; margin-bottom: 1.5rem; }
+  .blog .page-title { font-size:2.2rem; margin:0 0 .25rem; letter-spacing:-.01em; }
+  .blog .page-subtitle { color:var(--muted); font-size:1.05rem; }
+  
+  /* Toolbar */
+  .blog .toolbar { display:flex; justify-content:center; gap:12px; margin: 1.1rem 0; }
+  .blog .toolbar input, .blog .toolbar select {
+    padding: 9px 12px; border:1px solid var(--edge); border-radius:12px; background:#fff;
+  }
+  
+  /* Vertical feed container */
+  .blog .feed {
+    display:flex;
+    flex-direction:column;
+    gap: 22px;
+  }
+  
+  /* Article card (horizontal layout with left thumb) */
+  .blog .card {
+    display:flex; gap:18px; align-items:flex-start;
+    border:1px solid var(--edge); border-radius:14px; padding:16px; background:#fff;
+    transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  }
+  .blog .card:hover { box-shadow:0 6px 18px rgba(16,24,40,.08); transform:translateY(-2px); border-color:#dfe4ea; }
+  
+  /* Thumbnail */
+  .blog .thumb {
+    flex:0 0 200px;
+    height: 130px;
+    object-fit:cover;
+    border-radius:10px;
+    background:#f1f5f9;
+  }
+  .blog .thumb--placeholder { background: #f5f7fa; }
+  
+  /* Content */
+  .blog .card-content { flex:1; min-width:0; }
+  .blog .card-content h2 {
+    font-family:"Playfair Display",serif;
+    font-size:1.35rem;
+    margin:0 0 .35rem;
+    letter-spacing:-.005em;
+  }
+  .blog .meta-row { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 .6rem; color:var(--muted); font-size:.92rem; }
+  .blog .card-content p { font-size:1rem; line-height:1.6; color:var(--ink); }
+  .blog .card-content a { color: var(--brand); text-decoration:none; }
+  .blog .card-content a:hover { text-decoration:underline; }
+  
+  /* Responsive: stack image on top on small screens */
+  @media (max-width: 640px){
+    .blog .card { flex-direction:column; }
+    .blog .thumb { width:100%; height: 180px; }
+  }
+  
+  /* Pager & error */
+  .blog .pager { display:flex; justify-content:center; gap:10px; margin-top:1.6rem; }
+  .blog .btn { padding:8px 14px; border:1px solid var(--edge); border-radius:999px; background:#fff; cursor:pointer; }
+  .blog .btn:disabled { opacity:.5; cursor:not-allowed; }
+  .blog #err {
+    margin-top:12px; padding:12px; border:1px solid #fecaca; background:#fff1f2; border-radius:10px; color:#991b1b; display:none;
+  }
+  
+  /* Utilities */
+  .blog .muted { color: var(--muted); }
+  .blog .wrap { max-width:960px; margin-inline:auto; padding:24px; }
+  

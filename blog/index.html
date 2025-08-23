@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sthir Blog — Insights & Updates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Global site styles -->
+  <link href="../styles.css" rel="stylesheet" />
+  <!-- Blog-only overrides -->
+  <link href="./blog.css" rel="stylesheet" />
+</head>
+<body class="blog blog-list">
+  <!-- Navbar -->
+  <header class="navbar">
+    <nav class="container nav-inner">
+      <a href="../" class="brand font-playfair">Sthir</a>
+      <ul class="nav-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#services">Programs</a></li>
+        <li><a href="../#philosophy">Philosophy</a></li>
+        <li><a href="../#ai-tools">AI Tools</a></li>
+        <li><a href="../#testimonials">Testimonials</a></li>
+        <li><a href="../#contact">Contact</a></li>
+        <li><a href="./">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="wrap header-intro">
+    <h1 class="font-playfair page-title">Sthir Blog</h1>
+    <p class="page-subtitle">Insights, stories, and reflections to help you Sit steady and stand tall.</p>
+
+    <div class="toolbar">
+      <input id="search" placeholder="Search posts…" />
+      <select id="category">
+        <option value="">All</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Blog Feed (Vertical) -->
+  <main class="wrap">
+    <section id="list" class="feed" aria-live="polite"></section>
+
+    <nav class="pager">
+      <button id="prev" class="btn" disabled>Previous</button>
+      <button id="next" class="btn" disabled>Next</button>
+    </nav>
+
+    <div id="err"></div>
+  </main>
+
+  <!-- Script -->
+  <script>
+  (function(){
+    var WP = 'https://public-api.wordpress.com/wp/v2/sites/Sitsthir.wordpress.com';
+    var listEl = document.getElementById('list');
+    var searchEl = document.getElementById('search');
+    var btnPrev = document.getElementById('prev');
+    var btnNext = document.getElementById('next');
+    var errBox = document.getElementById('err');
+
+    var page = 1, totalPages = 1, currentQ = '';
+
+    function strip(html){ return (html || '').replace(/<[^>]*>/g,''); }
+
+    function showError(msg){
+      errBox.style.display = 'block';
+      errBox.innerHTML = '<strong>Couldn’t load posts.</strong><br><small>'+msg.replace(/</g,'&lt;')+'</small>';
+    }
+    function clearError(){ errBox.style.display='none'; errBox.textContent=''; }
+
+    function render(items){
+      if (!items || !items.length){
+        listEl.innerHTML = '<p class="muted">No posts found.</p>';
+        return;
+      }
+      var html = '';
+      for (var i=0;i<items.length;i++){
+        var p = items[i];
+        var title = p.title && p.title.rendered ? p.title.rendered : '(untitled)';
+        var date  = p.date ? new Date(p.date).toLocaleDateString() : '';
+        var raw   = (p.excerpt && p.excerpt.rendered) ? p.excerpt.rendered : (p.content && p.content.rendered) ? p.content.rendered : '';
+        var excerpt = strip(raw).slice(0,180);
+
+        html += ''+
+        '<article class="card">'+
+          (p.jetpack_featured_media_url
+            ? '<img class="thumb" src="'+p.jetpack_featured_media_url+'" alt="">'
+            : '<div class="thumb thumb--placeholder" aria-hidden="true"></div>'
+          )+
+          '<div class="card-content">'+
+            '<h2><a href="post.html?slug='+encodeURIComponent(p.slug)+'">'+title+'</a></h2>'+
+            '<div class="meta-row">'+
+              '<span>'+date+'</span>'+
+              '<span>• Sthir</span>'+
+            '</div>'+
+            '<p>'+excerpt+'… <a href="post.html?slug='+encodeURIComponent(p.slug)+'">Read more</a></p>'+
+          '</div>'+
+        '</article>';
+      }
+      listEl.innerHTML = html;
+    }
+
+    function fetchJSON(url, cb){
+      fetch(url).then(function(r){
+        if(!r.ok){ return r.text().then(function(t){ throw new Error('HTTP '+r.status+' — '+t); }); }
+        totalPages = parseInt(r.headers.get('X-WP-TotalPages') || '1', 10);
+        return r.json();
+      }).then(function(data){ cb(null, data); }).catch(function(err){ cb(err); });
+    }
+
+    function loadPosts(){
+      clearError();
+      var params = new URLSearchParams({ per_page: '9', page: String(page) });
+      if (currentQ) params.set('search', currentQ);
+
+      fetchJSON(WP + '/posts?' + params.toString(), function(err, data){
+        if (err){ console.error(err); showError(err.message); btnPrev.disabled=true; btnNext.disabled=true; return; }
+        render(Array.isArray(data) ? data : []);
+        btnPrev.disabled = page <= 1;
+        btnNext.disabled = page >= totalPages;
+      });
+    }
+
+    btnPrev.addEventListener('click', function(){ if (page>1){ page--; loadPosts(); } });
+    btnNext.addEventListener('click', function(){ if (page<totalPages){ page++; loadPosts(); } });
+    var t;
+    searchEl.addEventListener('input', function(){
+      clearTimeout(t);
+      t = setTimeout(function(){ currentQ = searchEl.value.trim(); page = 1; loadPosts(); }, 300);
+    });
+
+    // Kick off
+    loadPosts();
+  })();
+  </script>
+</body>
+</html>

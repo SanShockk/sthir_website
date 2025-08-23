@@ -1,0 +1,230 @@
+/* Highlight Contact link in nav */
+.nav-links a.active {
+  color: #064e3b;
+  font-weight: 600;
+  position: relative;
+}
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 100%; height: 2px;
+  background: #064e3b;
+  border-radius: 1px;
+}
+
+.contact-hero {
+  padding: 5rem 0 2rem;
+  background: linear-gradient(180deg, #f5fff9 0%, #ffffff 80%);
+}
+.contact-hero-inner {
+  text-align: center;
+  max-width: 760px;
+}
+.contact-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.75rem;
+}
+.contact-hero p {
+  color: #4b5563;
+  margin-bottom: 1.2rem;
+}
+.cta-row {
+  display: inline-flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-page-form {
+  max-width: 680px;
+  margin-left: -5; 
+  margin-inline: auto;
+}
+.contact-page-form .form-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.actions-alt {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.btn-ghost {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+}
+.btn-ghost:hover { background: #f9fafb; }
+.with-icon svg { margin-right: .4rem; vertical-align: -2px; }
+
+.or-divider {
+  position: relative;
+  padding: 0 .6rem;
+  font-size: .9rem;
+  color: #6b7280;
+}
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: #e5e7eb;
+  vertical-align: middle;
+  margin: 0 .35rem;
+}
+
+.cta-hint {
+  margin-top: .4rem;
+  color: #6b7280;
+  font-size: .95rem;
+}
+
+body.no-scroll { overflow: hidden; }
+.booking-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.18s ease-out;
+}
+.booking-modal {
+  background: #fff;
+  width: min(1000px, 92vw);
+  height: min(85vh, 900px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.booking-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #f9fafb;
+}
+.booking-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.booking-actions {
+  display: flex; gap: 0.5rem; align-items: center;
+}
+.booking-btn {
+  border: none; cursor: pointer;
+  padding: 0.45rem 0.75rem; border-radius: 10px;
+  background: #edf2f7; color: #111827; font-weight: 500;
+  text-decoration: none;
+}
+.booking-btn:hover { background: #e5eaf0; }
+.booking-close {
+  border: none; background: transparent; cursor: pointer;
+  font-size: 1.25rem; line-height: 1; padding: 0.25rem 0.5rem;
+}
+.booking-iframe {
+  width: 100%; height: 100%; border: 0; flex: 1 1 auto;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@media (max-width: 640px) {
+  .actions-alt { flex-direction: column; align-items: stretch; }
+  .or-divider { display: flex; align-items: center; width: 100%; }
+  .or-divider::before, .or-divider::after { flex: 1; }
+  .booking-header { position: sticky; top: 0; z-index: 1; }
+}
+
+.send-btn[disabled] {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+.primary-cta {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.divider {
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: 500;
+  color: #6b7280;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #e5e7eb;
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.contact-page-form {
+  max-width: 680px;
+  margin-inline: auto;
+}
+.contact-page-form .form-actions {
+  display: flex;
+  justify-content: center;
+}
+.contact-page-form .form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.send-btn {
+  background: linear-gradient(to right, #065f46, #047857);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 2.5rem;
+  box-shadow: 0 4px 14px rgba(6, 95, 70, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(6, 95, 70, 0.3);
+}
+
+.send-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; 
+}
+
+.primary-cta,
+.divider {
+  align-self: center;
+}
+
+.contact-page-form {
+  width: 100%;
+  max-width: 680px;
+  margin-left: 0;
+  margin-right: auto; 
+}
+
+.contact-page-form .form-group input,
+.contact-page-form .form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-page-form .form-actions {
+  display: flex;
+  justify-content: center;
+}

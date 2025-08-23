@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Sthir</title>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="../styles.css"/>
+
+  <!-- Contact page overrides -->
+  <link rel="stylesheet" href="./contact.css"/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <nav class="container nav-inner" aria-label="Main navigation">
+      <a href="../" class="brand font-playfair" aria-label="Sthir Home">Sthir</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#services">Programs</a></li>
+        <li><a href="../#philosophy">Philosophy</a></li>
+        <li><a href="../#ai-tools">AI Tools</a></li>
+        <li><a href="../#testimonials">Testimonials</a></li>
+        <li><a class="active" href="/contact/">Contact</a></li>
+        <li><a href="#" id="book-call-link" aria-label="Book a 30-minute call">Book Call</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Contact Form -->
+  <section id="contact" class="section glass-section contact-bg">
+    <div class="container contact-container" data-aos="fade-up">
+      <div class="contact-header">
+        <h2 class="section-title font-playfair">Let’s Connect</h2>
+        <p>Choose the option that works best for you.</p>
+      </div>
+  
+      <div class="primary-cta">
+        <button type="button" class="btn btn-primary with-icon" id="open-booking-2" aria-label="Book a 30-minute call">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10Z"/>
+          </svg>
+          Book a 30-min Call
+        </button>
+      </div>
+  
+      <div class="divider">— or —</div>
+  
+      <form class="contact-form contact-page-form" aria-label="Contact Form" autocomplete="off" novalidate>
+        <div class="form-group">
+          <input type="text" id="name" name="name" required />
+          <label for="name">Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" required />
+          <label for="email">Email</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <label for="message">Message</label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-secondary send-btn">Send Message</button>
+        </div>
+      </form>
+  
+      <noscript>
+        <p>
+          JavaScript is disabled. You can book directly at
+          <a href="https://shalu.youcanbook.me/" rel="noopener">this link</a>.
+        </p>
+      </noscript>
+    </div>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="font-playfair footer-brand">Sthir</div>
+        <div class="footer-tagline">Sit Sthir, Stand Tall.</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../#about">About</a></li>
+        <li><a href="../#services">Programs</a></li>
+        <li><a class="active" href="/contact/">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 11.616 0 006.29 1.84"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" /></svg>
+        </a>
+        <a href="#" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12.011c0 4.432 2.865 8.18 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.011C22 6.477 17.523 2 12 2z" /></svg>
+        </a>
+      </div>
+      <div class="footer-copy">&copy; 2025 Sthir. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="./contact.js"></script>
+</body>
+</html>

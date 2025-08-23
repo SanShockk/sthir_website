@@ -127,7 +127,7 @@
   /* Hero Section */
   .hero {
     background: linear-gradient(120deg, #a3b18a 0%, #588157 90%);
-    min-height: 80vh;
+    /* min-height: 80vh; */
     display: flex; align-items: center; padding: 3rem 0;
     position: relative;
   }
@@ -357,3 +357,65 @@
   }
   .font-playfair { font-family: var(--font-title);}
   
+  /* --- Booking Modal --- */
+body.no-scroll { overflow: hidden; }
+
+.booking-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.18s ease-out;
+}
+
+.booking-modal {
+  background: #fff;
+  width: min(1000px, 92vw);
+  height: min(85vh, 900px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+.booking-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #f9fafb;
+}
+
+.booking-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.booking-actions {
+  display: flex; gap: 0.5rem; align-items: center;
+}
+
+.booking-btn {
+  border: none; cursor: pointer;
+  padding: 0.45rem 0.75rem; border-radius: 10px;
+  background: #edf2f7; color: #111827; font-weight: 500;
+}
+
+.booking-btn:hover { background: #e5eaf0; }
+
+.booking-close {
+  border: none; background: transparent; cursor: pointer;
+  font-size: 1.25rem; line-height: 1; padding: 0.25rem 0.5rem;
+}
+
+.booking-iframe {
+  width: 100%; height: 100%; border: 0; flex: 1 1 auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 } to { opacity: 1 }
+}
+
+/* Small screens: make header sticky for quick close */
+@media (max-width: 640px) {
+  .booking-header { position: sticky; top: 0; z-index: 1; }
+}

@@ -118,7 +118,7 @@ if (validateIdeaBtn) {
 }
 if (generateTipBtn) {
   generateTipBtn.addEventListener('click', () => {
-    const prompt = "Act as Shalu Ahuja, founder of Sthir. Provide one unique, actionable, inspiring leadership tip for a young student or aspiring entrepreneur, in one or two sentences, reflecting the 'Stay Sthir, Stand Tall' philosophy.";
+    const prompt = "Act as Shalu Ahuja, founder of Sthir. Provide one unique, actionable, inspiring leadership tip for a young student or aspiring entrepreneur, in one or two sentences, reflecting the 'Sit Sthir, Stand Tall' philosophy.";
     callGemini(prompt, tipLoader, tipOutput, generateTipBtn);
   });
 }

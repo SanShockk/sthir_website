@@ -4,56 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sthir – Sit Sthir, Stand Tall</title>
+
+  <!-- AOS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+
+  <!-- Your global styles -->
   <link rel="stylesheet" href="styles.css"/>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+
+  <!-- Page-specific quick styles (Interest banner) -->
+  <style>
+    .interest-banner {
+      position: fixed; right: 1rem; bottom: 1rem; z-index: 1000;
+      max-width: 320px; padding: 1rem;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.06); border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      display: none;
+    }
+    .interest-banner.show { display: block; animation: slideUp 260ms ease-out; }
+    .interest-close {
+      position:absolute; top:.35rem; right:.5rem; border:none; background:transparent;
+      font-size:1.2rem; cursor:pointer; line-height:1; opacity:.6;
+    }
+    .interest-close:hover { opacity: 1; }
+    .interest-content p { margin:.25rem 0 .75rem; font-size:.95rem; }
+    @media (max-width: 600px) {
+      .interest-banner { left: .75rem; right: .75rem; bottom: .75rem; }
+    }
+    @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+  </style>
 </head>
 <body>
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <nav class="container nav-inner" aria-label="Main navigation">
-      <a href="#" class="brand font-playfair" aria-label="Sthir Home">Sthir</a>
+      <a href="/" class="brand" aria-label="Sthir Home">
+        <img src="./images/logo.jpeg" alt="" class="brand-logo" />
+        <div class="brand-text">
+          <span class="brand-title font-playfair">Sthir</span>
+          <span class="brand-tagline">Sit Sthir, Stand Tall</span>
+        </div>
+      </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Programs</a></li>
-        <li><a href="#philosophy">Philosophy</a></li>
-        <li><a href="#ai-tools">AI Tools</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#services">Programs</a></li>
+        <li><a href="/#philosophy">Philosophy</a></li>
+        <li><a href="/#ai-tools">AI Tools</a></li>
+        <li><a href="/#testimonials">Testimonials</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/blog/">Blog</a></li>
 
-
-        <li
-        style="margin-left:1.2rem; display:flex; align-items:center; height:100%;"
-        >
-        <a
-            href="#contact"
+        <li style="margin-left:1.2rem; display:flex; align-items:center; height:100%;">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing"
+            target="_blank" rel="noopener"
             style="
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            padding:0.25rem 1.1rem;
-            border-radius:999px;
-            font-weight:500;
-            font-size:1.07rem;
-            cursor:pointer;
-            border:none;
-            background:linear-gradient(93deg, #064e3b 65%, #a3b18a 100%);
-            color:#fff;
-            box-shadow:0 2px 8px 0 rgba(16,185,129,0.12);
-            text-decoration:none;
-            line-height:1.35;
-            transition:background 0.18s, box-shadow 0.18s, transform 0.14s;
-            outline:none;
+              display:inline-flex; align-items:center; justify-content:center;
+              padding:0.25rem 1.1rem; border-radius:999px; font-weight:500; font-size:1.07rem;
+              cursor:pointer; border:none;
+              background:linear-gradient(93deg, #2563eb 65%, #93c5fd 100%);
+              color:#fff; box-shadow:0 2px 8px 0 rgba(37,99,235,0.18); text-decoration:none; line-height:1.35;
+              transition:background 0.18s, box-shadow 0.18s, transform 0.14s; outline:none;
             "
-            onmouseover="this.style.background='linear-gradient(93deg, #065f46 90%, #bfdcae 100%)'; this.style.transform='translateY(-2px) scale(1.03)'; this.style.boxShadow='0 6px 18px rgba(16,185,129,0.17)';"
-            onmouseout="this.style.background='linear-gradient(93deg, #064e3b 65%, #a3b18a 100%)'; this.style.transform='none'; this.style.boxShadow='0 2px 8px 0 rgba(16,185,129,0.12)';"
-        >
-            Get Started
-        </a>
+            onmouseover="this.style.background='linear-gradient(93deg, #1e3a8a 90%, #bfdbfe 100%)'; this.style.transform='translateY(-2px) scale(1.03)'; this.style.boxShadow='0 6px 18px rgba(37,99,235,0.28)';"
+            onmouseout="this.style.background='linear-gradient(93deg, #2563eb 65%, #93c5fd 100%)'; this.style.transform='none'; this.style.boxShadow='0 2px 8px 0 rgba(37,99,235,0.18)';"
+          >
+            Apply Now
+          </a>
         </li>
-
-      
       </ul>
       <button id="nav-toggle" class="nav-toggle" aria-label="Open Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -61,96 +82,157 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="container hero-inner" data-aos="fade-up">
-      <span class="badge">✨ Now Accepting 2025 Cohort Applications</span>
-      <h1 class="hero-title font-playfair">Sit Sthir, Stand Tall</h1>
-      <p class="hero-desc">
-        Empowering the next generation of leaders and entrepreneurs to build with purpose and resilience.
-      </p>
-      <div class="hero-btns">
-        <a href="#services" class="btn btn-primary hero-btn">Our Programs</a>
-        <a href="#about" class="btn btn-secondary hero-btn">Meet Shalu</a>
-      </div>
-    </div>
-  </section>
+<!-- Hero / Welcome Section -->
+<section class="hero" id="hero">
+  <div class="container hero-inner" data-aos="fade-up">
 
-<!-- About Section -->
-<section id="about" class="section about-bg">
-  <div class="container about-content" data-aos="fade-up">
-    <div class="about-img">
-      <img src="https://placehold.co/400x400/588157/ffffff?text=Shalu+Ahuja" alt="Shalu Ahuja portrait" />
-    </div>
-    <div class="about-text">
-      <h2 class="section-title font-playfair">Meet Sthir Mind</h2>
-      
-      <h3>Founder: Shalu Ahuja</h3>
-      <p>
-        Someone who’s walked and worn many paths.<br />
-        The kind that collects ranks and wins on paper. The kind that prescribes and consults. And the kind that feels lost, overwhelmed, and swallowed by noise.
-      </p>
-      <p>
-        An engineer and business leader by profession and a flawsome parent of young adults in life, Shalu has spent over 25 years building high-performing teams, products, and services.
-      </p>
-      <p>
-        For the past decade, she’s walked alongside young people through identity crashes, career pivots, and the quiet distress of not knowing what’s next. In every conversation, the same truth emerged: what most young people lack isn’t ambition. It’s anchoring.
-      </p>
-      <p>
-        Sthir is born from her lived tension between speed and stillness, becoming and being, outer success and inner truth. She now brings together structure and soul, real tools and real talk, for the next generation to build not just careers or companies, but conscious lives.
-      </p>
-      
-      <h3>Founding Circle</h3>
-      <p>
-        Meet the Founding Circle—the group that’s refined the Sthir structures and shaped them into what young minds really need in today’s fast-paced AI world. They are co-architects, sounding boards, and relentless optimists, bringing both experience and empathy to every conversation. Together, they’ve made Sthir not just possible, but practical.
-      </p>
+    <!-- Intro Badge -->
+    <span class="badge">✨ Welcome to Sthir</span>
+
+    <!-- Main Heading -->
+    <h1 class="hero-title font-playfair">Sit Sthir, Stand Tall</h1>
+
+    <!-- New Welcome Text -->
+    <p class="hero-desc">
+      Young adults today are surrounded by endless information yet struggle to find focus.  
+      Their feeds overflow with inspiration, but turning it into action feels paralyzing.  
+      They’re always “connected,” yet often feel unseen in their circles.
+    </p>
+    <p class="hero-desc">
+      At <strong>Sthir</strong>, we recognize these realities and offer a <em>Leadership Sandbox</em>—  
+      a mindful space to connect deeply with yourself and express meaningfully to the world. 
+    </p>
+    <p class="hero-desc">
+      By taking on a project of their choice, participants explore what matters to them,  
+      test ideas in action, and grow through doing, not just thinking. With thoughtful tools,  
+      guided reflection, and collaboration, Sthir helps turn overwhelm into clarity,  
+      inspiration into confident action, and disconnection into conscious connection.
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="hero-btns">
+      <!-- Apply Now -->
+      <a class="btn btn-primary hero-btn"
+        target="_blank" rel="noopener"
+        href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing">
+        Apply Now
+      </a>
+
+      <!-- Our Offerings -->
+      <a href="#services" class="btn btn-secondary hero-btn">
+        Our Offerings
+      </a>
+
+      <!-- Meet Sthir Mind -->
+      <a href="#about" class="btn btn-secondary hero-btn">
+        Meet Sthir Mind
+      </a>
     </div>
   </div>
 </section>
 
 
-  <!-- What We Enable / Programs -->
-  <section id="services" class="section glass-section">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title font-playfair">What We Enable</h2>
-      <div class="card-grid">
-        <!-- Card 1 -->
-        <div class="glass-card" tabindex="0" aria-label="Leadership Development" data-aos="fade-up" data-aos-delay="50">
-          <div class="icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-          </div>
-          <h3>Leadership Development</h3>
-          <p>Cultivate the essential qualities of a modern leader: empathy, resilience, and strategic vision.</p>
+
+  <!-- About Section -->
+  <section id="about" class="section about-bg">
+    <h2 class="section-title font-playfair">Meet Sthir Mind</h2>
+    <div class="container about-content" data-aos="fade-up">
+      <div class="about-img">
+        <img src="./images/shalu_ahuja.png" alt="Shalu Ahuja portrait" class="about-portrait" />
+        <div class="about-logo">
+          <img src="./images/logo.jpeg" alt="Sthir Logo" class="sthir-logo" />
         </div>
-        <!-- Card 2 -->
-        <div class="glass-card" tabindex="0" aria-label="Startup Incubation" data-aos="fade-up" data-aos-delay="150">
-          <div class="icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.373 3.373 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-          </div>
-          <h3>Startup Incubation</h3>
-          <p>From idea to launch, we provide the framework, mentorship, and support to build a sustainable business.</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="glass-card" tabindex="0" aria-label="Personal Growth" data-aos="fade-up" data-aos-delay="250">
-          <div class="icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-          </div>
-          <h3>Personal Growth</h3>
-          <p>Embark on a transformative journey to understand your strengths, values, and purpose.</p>
-        </div>
+      </div>
+      
+      <div class="about-text">
+
+        <h3>Founder: Shalu Ahuja</h3>
+        <p>
+          An engineer, business leader, and “flawsome” parent of young adults, Shalu has walked many paths. 
+          She’s built high-performing teams, products, and services for 25+ years. She’s also known the feeling 
+          of being lost, overwhelmed by noise despite success on paper.
+        </p>
+        <p>
+          For the past decade, she has walked alongside young people through identity crashes, career pivots, 
+          and the quiet distress of “not knowing what’s next.” One truth kept surfacing: most young people don’t 
+          lack ambition, but anchoring.
+        </p>
+        <p>
+          Sthir was born from that tension. Shalu brings structure and soul, real tools and real talk, so the next 
+          generation can build not just careers or companies, but conscious lives.
+        </p>
+
+        <h3>Founding Circle</h3>
+        <p>
+          A group of millennials and Gen Z who lived Sthir’s process first, refined it second, and shaped it into 
+          what young minds truly need today. They are co-architects, sounding boards, and relentless optimists, 
+          ensuring Sthir stays practical, empathetic, and human in an AI-driven world.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Philosophy Section -->
-  <section id="philosophy" class="section philosophy-bg">
+
+  <!-- Our Offerings Section -->
+  <section id="services" class="section glass-section">
     <div class="container" data-aos="fade-up">
-      <h2 class="section-title font-playfair">The Meaning of Sthir (स्थिर)</h2>
-      <p class="philosophy-desc">
-        In Sanskrit, 'Sthir' means stable, calm, and constant. It's the foundation upon which great things are built. Before you can build a successful company, you must first build a resilient self. We help you find your center, your 'Sthir', so you can stand tall and lead with confidence.
-      </p>
+      <h2 class="section-title font-playfair">Our Offerings</h2>
+      <div class="card-grid">
+        
+        <!-- Phase 1: Personal Clarity -->
+        <div class="glass-card" tabindex="0" aria-label="Personal Clarity" data-aos="fade-up" data-aos-delay="50">
+          <div class="video-thumb">
+            <video src="vid1.mp4" controls></video>
+          </div>
+          <h3>Personal Clarity</h3>
+          <p>
+            Discover what truly matters to you.<br>
+            Create your Anchoring Map, a personal compass for decisions, focus, and growth.
+          </p>
+        </div>
+        
+        <!-- Phase 2: Real-World Confidence -->
+        <div class="glass-card" tabindex="0" aria-label="Real-World Confidence" data-aos="fade-up" data-aos-delay="150">
+          <div class="video-thumb">
+            <video src="vid2.mp4" controls></video>
+          </div>
+          <h3>Real-World Confidence</h3>
+          <p>
+            Turn ideas into action.<br>
+            Work on a meaningful project, test it with real people, and build a validated Action Plan/MVP.
+          </p>
+        </div>
+        
+        <!-- Phase 3: Conscious Leadership -->
+        <div class="glass-card" tabindex="0" aria-label="Conscious Leadership" data-aos="fade-up" data-aos-delay="250">
+          <div class="video-thumb">
+            <video src="vid3.mp4" controls></video>
+          </div>
+          <h3>Conscious Leadership</h3>
+          <p>
+            Design your own leadership narrative.<br>
+            Gain tools for collaboration, influence, and creating expert networks. Own your career, build your company, and lead your life.
+          </p>
+        </div>
+
+      </div>
     </div>
   </section>
+
+
+<!-- Philosophy Section -->
+<section id="philosophy" class="section philosophy-bg">
+  <div class="container" data-aos="fade-up">
+    <h2 class="section-title font-playfair">The Meaning of Sthir (स्थिर)</h2>
+    <h3 class="philosophy-subtitle">
+      Sthir is <span id="word1">स्थिर</span> in <span id="word2">Urdu</span>
+    </h3>
+    <p class="philosophy-desc">
+      In Sanskrit, 'Sthir' means stable, calm, and constant. It's the foundation upon which great things are built. Before you can build a successful company, you must first build a resilient self. We help you find your center, your 'Sthir', so you can stand tall and lead with confidence.
+    </p>
+  </div>
+</section>
+
 
   <!-- AI Powered Tools Section -->
   <section id="ai-tools" class="section glass-section">
@@ -181,43 +263,94 @@
       </div>
     </div>
   </section>
-
+  
   <!-- Testimonials Section -->
   <section id="testimonials" class="section testimonial-bg">
     <div class="container" data-aos="fade-up">
       <h2 class="section-title font-playfair">What Our Students Say</h2>
-      <div class="testimonial-slider" id="testimonial-slider">
-        <div class="testimonial-card">
-          <div class="testimonial-quote"><span>“</span></div>
-          <p>Working with Shalu was a game-changer. She helped me find clarity in my vision and the courage to pursue it. Sthir is more than a program; it's a community.</p>
-          <div class="testimonial-user">
-            <img src="https://placehold.co/72x72/3a5a40/ffffff?text=A" alt="Ananya Sharma avatar"/>
-            <div>
-              <strong>Ananya Sharma</strong>
-              <div class="testimonial-role">Founder, InnovateU</div>
+  
+      <!-- Viewport (hides overflow) -->
+      <div class="testimonial-viewport" id="testimonial-viewport">
+        <!-- Track (slides left/right) -->
+        <div class="testimonial-track" id="testimonial-track">
+  
+          <!-- Testimonial 1 -->
+          <article class="testimonial-card">
+            <div class="testimonial-quote" aria-hidden="true"><span>“</span></div>
+            <p>Working with Shalu was a game-changer. She helped me find clarity in my vision and the courage to pursue it. Sthir is more than a program; it's a community.</p>
+            <div class="testimonial-user">
+              <img src="https://placehold.co/72x72/3a5a40/ffffff?text=B" alt="Bahaar Ahuja avatar">
+              <div>
+                <strong>Bahaar Ahuja</strong>
+                <div class="testimonial-role">Student, Sthir Cohort</div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-quote"><span>“</span></div>
-          <p>The leadership skills I learned at Sthir are invaluable. I feel more confident, focused, and prepared to lead my team. Shalu's guidance is both practical and deeply inspiring.</p>
-          <div class="testimonial-user">
-            <img src="https://placehold.co/72x72/344e41/ffffff?text=L" alt="Liam Chen avatar"/>
-            <div>
-              <strong>Liam Chen</strong>
-              <div class="testimonial-role">CEO, TechForward</div>
+          </article>
+  
+          <!-- Testimonial 2 -->
+          <article class="testimonial-card">
+            <div class="testimonial-quote" aria-hidden="true"><span>“</span></div>
+            <p>The leadership skills I learned at Sthir are invaluable. I feel more confident, focused, and prepared to lead my team. Shalu's guidance is both practical and deeply inspiring.</p>
+            <div class="testimonial-user">
+              <img src="https://placehold.co/72x72/344e41/ffffff?text=M" alt="Maanya Gupta avatar">
+              <div>
+                <strong>Maanya Gupta</strong>
+                <div class="testimonial-role">Student, Sthir Cohort</div>
+              </div>
             </div>
-          </div>
+          </article>
+  
+          <!-- Testimonial 3 -->
+          <article class="testimonial-card">
+            <div class="testimonial-quote" aria-hidden="true"><span>“</span></div>
+            <p>Sthir gave me the tools to take an idea from scratch and actually test it in the real world. That experience gave me confidence to lead with action.</p>
+            <div class="testimonial-user">
+              <img src="https://placehold.co/72x72/1e3a8a/ffffff?text=S" alt="Sanil Katula avatar">
+              <div>
+                <strong>Sanil Katula</strong>
+                <div class="testimonial-role">Student, Sthir Cohort</div>
+              </div>
+            </div>
+          </article>
+  
+          <!-- Testimonial 4 -->
+          <article class="testimonial-card">
+            <div class="testimonial-quote" aria-hidden="true"><span>“</span></div>
+            <p>Through Sthir I not only discovered clarity, but also built friendships and a network that continues to support me today.</p>
+            <div class="testimonial-user">
+              <img src="https://placehold.co/72x72/9333ea/ffffff?text=SR" alt="Sana Raza avatar">
+              <div>
+                <strong>Sana Raza</strong>
+                <div class="testimonial-role">Student, Sthir Cohort</div>
+              </div>
+            </div>
+          </article>
+  
+          <!-- Testimonial 5 -->
+          <article class="testimonial-card">
+            <div class="testimonial-quote" aria-hidden="true"><span>“</span></div>
+            <p>Sthir helped me grow as a person and as a leader. I feel more grounded, yet more ambitious than ever before.</p>
+            <div class="testimonial-user">
+              <img src="https://placehold.co/72x72/2563eb/ffffff?text=K" alt="Krishna Tyagi avatar">
+              <div>
+                <strong>Krishna Tyagi</strong>
+                <div class="testimonial-role">Student, Sthir Cohort</div>
+              </div>
+            </div>
+          </article>
+  
         </div>
-        <!-- Add more testimonials as needed -->
       </div>
-      <!-- Carousel controls for mobile -->
-      <div class="testimonial-controls" id="testimonial-controls">
-        <button class="testimonial-dot active" aria-label="Testimonial 1"></button>
-        <button class="testimonial-dot" aria-label="Testimonial 2"></button>
+  
+      <!-- Controls -->
+      <div class="testimonial-controls">
+        <button class="testimonial-arrow" id="prevBtn" aria-label="Previous">‹</button>
+        <div class="testimonial-dots" id="testimonial-dots"></div>
+        <button class="testimonial-arrow" id="nextBtn" aria-label="Next">›</button>
       </div>
     </div>
   </section>
+  
 
   <!-- Footer -->
   <footer class="footer">
@@ -229,7 +362,8 @@
       <ul class="footer-links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Programs</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#apply">Apply</a></li>
+        <li><a href="/contact/">Contact</a></li>
       </ul>
       <div class="footer-social">
         <a href="#" aria-label="Twitter">
@@ -245,7 +379,32 @@
       <div class="footer-copy">&copy; 2025 Sthir. All Rights Reserved.</div>
     </div>
   </footer>
+
+  <!-- Sticky Interest Banner -->
+  <div id="interest-banner" class="interest-banner" aria-live="polite">
+    <button class="interest-close" aria-label="Close interest banner">&times;</button>
+    <div class="interest-content">
+      <strong>Stay in the loop</strong>
+      <p>Get updates on cohorts, events, and resources.</p>
+      <a class="btn btn-secondary" target="_blank" rel="noopener"
+        href="https://docs.google.com/forms/d/e/1FAIpQLScl240ueTEebNQobfeNkejVFbQ0pJW_64cL_0rPfJszRjhPsA/viewform?usp=sharing">
+        Join Interest List
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating Info Button -->
+  <button id="interest-trigger" class="interest-trigger" aria-label="Open interest form">⭐</button>
+
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    try { AOS.init(); } catch(e) {}
+  </script>
+  <script src="interest.js"></script>
+  <script src="sthirLoop.js"></script>
+  <script src="testimonial.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

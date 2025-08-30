@@ -14,7 +14,7 @@ window.addEventListener("scroll", () => {
 // --- Mobile Nav Toggle ---
 // If you have a mobile menu element on this page, wire it here
 const navToggle = document.getElementById("nav-toggle");
-const mobileMenu = document.getElementById("mobile-menu"); // optional
+const mobileMenu = document.getElementById("mobile-menu"); 
 if (navToggle && mobileMenu) {
   navToggle.addEventListener("click", () => {
     mobileMenu.classList.toggle("active");
@@ -46,9 +46,9 @@ document.querySelectorAll('.form-group input, .form-group textarea').forEach(inp
   });
 });
 
-// --- YouCanBook.me Popup ---
+// --- cal.com Popup ---
 (function() {
-  const BOOKING_URL = "https://shalu.youcanbook.me/"; // your booking page
+  const BOOKING_URL = "https://cal.com/sthireducation/";
 
   const openers = [
     document.getElementById('book-call-link'),
@@ -109,7 +109,7 @@ document.querySelectorAll('.form-group input, .form-group textarea').forEach(inp
     const iframe = document.createElement('iframe');
     iframe.className = 'booking-iframe';
     iframe.src = url;
-    iframe.title = 'YouCanBook.me scheduling';
+    iframe.title = 'Cal.com scheduling';
 
     // Compose
     modal.appendChild(header);

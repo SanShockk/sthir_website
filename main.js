@@ -122,3 +122,27 @@ if (generateTipBtn) {
     callGemini(prompt, tipLoader, tipOutput, generateTipBtn);
   });
 }
+//FAQs Section
+function toggleFAQ(button) {
+    const faqItem = button.parentElement;
+    const faqAnswer = faqItem.querySelector('.faq-answer');
+    const faqIcon = button.querySelector('.faq-icon');
+    
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem) {
+            item.querySelector('.faq-answer').classList.remove('active');
+            item.querySelector('.faq-icon').textContent = '+';
+        }
+    });
+    
+    // Toggle current FAQ item
+    if (faqAnswer.classList.contains('active')) {
+        faqAnswer.classList.remove('active');
+        faqIcon.textContent = '+';
+    } else {
+        faqAnswer.classList.add('active');
+        faqIcon.textContent = '×';
+    }
+}
+

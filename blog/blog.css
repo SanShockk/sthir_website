@@ -1,44 +1,86 @@
-/* blog/blog.css — vertical professional feed */
+/* blog/blog.css — Sthir Blog list (scoped, font-safe) */
 
+/* Page background only; don't redefine fonts/tokens globally */
 .blog {
-  --ink:#0a1633;       /* deep sapphire ink */
-  --muted:#5b6f91;     /* muted slate-blue */
-  --edge:#dce4f0;      /* light edge */
-  --paper:#f9fbfe;     /* soft off-white with blue tint */
-  --brand:#1e40af;     /* sapphire brand blue */
-  
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--brand-bg);
 }
 
-/* Header intro */
-.blog .header-intro { text-align:center; margin-bottom: 1.5rem; }
-.blog .page-title { font-size:2.2rem; margin:0 0 .25rem; letter-spacing:-.01em; }
-.blog .page-subtitle { color:var(--muted); font-size:1.05rem; }
+/* Scope blog tokens & base text color to content below the navbar */
+.blog .header-intro,
+.blog main,
+.blog .footer {
+  --ink:#0b1220;
+  --muted:#64748b;
+  --edge:#e6e8ec;
+  --paper:#fbfdfb;
+  --brand:#2563eb; /* align with your blue brand hue */
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-body);
+}
+
+/* ---------------------------------------
+   Header intro
+--------------------------------------- */
+.blog .header-intro {
+  text-align:center;
+  margin-bottom: 1.5rem;
+}
+.blog .page-title {
+  font-family: var(--font-title);
+  font-size:2.2rem;
+  margin:0 0 .25rem;
+  letter-spacing:-.01em;
+  color:#0b1b3a;
+}
+.blog .page-subtitle {
+  color:var(--muted);
+  font-size:1.05rem;
+}
 
 /* Toolbar */
-.blog .toolbar { display:flex; justify-content:center; gap:12px; margin: 1.1rem 0; }
-.blog .toolbar input, .blog .toolbar select {
-  padding: 9px 12px; border:1px solid var(--edge); border-radius:12px; background:#fff;
+.blog .toolbar {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin: 1.1rem 0;
+}
+.blog .toolbar input,
+.blog .toolbar select {
+  padding: 9px 12px;
+  border:1px solid var(--edge);
+  border-radius:12px;
+  background:#fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
 }
 
-/* Vertical feed container */
+/* ---------------------------------------
+   Vertical feed container
+--------------------------------------- */
 .blog .feed {
   display:flex;
   flex-direction:column;
   gap: 22px;
 }
 
-/* Article card */
+/* ---------------------------------------
+   Article card (horizontal layout with left thumb)
+--------------------------------------- */
 .blog .card {
-  display:flex; gap:18px; align-items:flex-start;
-  border:1px solid var(--edge); border-radius:14px; padding:16px; background:#fff;
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  border:1px solid var(--edge);
+  border-radius:14px;
+  padding:16px;
+  background:#fff;
   transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
 }
-.blog .card:hover { 
-  box-shadow:0 6px 18px rgba(15,23,42,.12); 
-  transform:translateY(-2px); 
-  border-color:#c7d3eb; 
+.blog .card:hover {
+  box-shadow:0 6px 18px rgba(16,24,40,.08);
+  transform:translateY(-2px);
+  border-color:#dfe4ea;
 }
 
 /* Thumbnail */
@@ -47,37 +89,89 @@
   height: 130px;
   object-fit:cover;
   border-radius:10px;
-  background:#e6edf7;
+  background:#f1f5f9;
 }
-.blog .thumb--placeholder { background: #edf2fa; }
+.blog .thumb--placeholder { background:#f5f7fa; }
 
 /* Content */
 .blog .card-content { flex:1; min-width:0; }
 .blog .card-content h2 {
-  font-family:"Playfair Display",serif;
+  font-family: var(--font-title);
   font-size:1.35rem;
   margin:0 0 .35rem;
   letter-spacing:-.005em;
+  color:#0b1b3a;
 }
-.blog .meta-row { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 .6rem; color:var(--muted); font-size:.92rem; }
-.blog .card-content p { font-size:1rem; line-height:1.6; color:var(--ink); }
-.blog .card-content a { color: var(--brand); text-decoration:none; }
+.blog .meta-row {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:0 0 .6rem;
+  color:var(--muted);
+  font-size:.92rem;
+  font-family: var(--font-body);
+}
+.blog .card-content p {
+  font-size:1rem;
+  line-height:1.6;
+  color:var(--ink);
+  font-family: var(--font-body);
+}
+.blog .card-content a {
+  color: var(--blue);
+  text-decoration:none;
+  font-weight: 600;
+}
 .blog .card-content a:hover { text-decoration:underline; }
 
-/* Responsive */
-@media (max-width: 640px){
-  .blog .card { flex-direction:column; }
-  .blog .thumb { width:100%; height: 180px; }
+/* ---------------------------------------
+   Pager & error
+--------------------------------------- */
+.blog .pager {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:1.6rem;
 }
-
-/* Pager & error */
-.blog .pager { display:flex; justify-content:center; gap:10px; margin-top:1.6rem; }
-.blog .btn { padding:8px 14px; border:1px solid var(--edge); border-radius:999px; background:#fff; cursor:pointer; }
+.blog .btn {
+  padding:8px 14px;
+  border:1px solid var(--edge);
+  border-radius:999px;
+  background:#fff;
+  cursor:pointer;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+}
 .blog .btn:disabled { opacity:.5; cursor:not-allowed; }
 .blog #err {
-  margin-top:12px; padding:12px; border:1px solid #fecaca; background:#fff1f2; border-radius:10px; color:#991b1b; display:none;
+  margin-top:12px;
+  padding:12px;
+  border:1px solid #fecaca;
+  background:#fff1f2;
+  border-radius:10px;
+  color:#991b1b;
+  display:none;
+  font-family: var(--font-body);
 }
 
-/* Utilities */
+/* ---------------------------------------
+   Utilities
+--------------------------------------- */
 .blog .muted { color: var(--muted); }
 .blog .wrap { max-width:960px; margin-inline:auto; padding:24px; }
+
+/* ---------------------------------------
+   Responsive
+--------------------------------------- */
+@media (max-width: 640px){
+  .blog .card { flex-direction:column; }
+  .blog .thumb { width:100%; height:180px; }
+}
+
+/* ---------------------------------------
+   Safety nets (do not change navbar fonts/colors)
+--------------------------------------- */
+body.blog .navbar,
+body.blog .navbar * {
+  font-family: inherit;
+}

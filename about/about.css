@@ -1,0 +1,63 @@
+/* About Page — minimal, uses your global tokens and components */
+
+.about-hero {
+    background: linear-gradient(120deg, var(--accent) 0%, var(--blue) 90%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    min-height: 44vh;
+    padding: 5rem 0 4rem;
+  }
+  .about-hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .about-title { font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); margin: .4rem 0 .6rem; }
+  .about-subtitle { max-width: 760px; margin: 0 auto; font-size: 1.12rem; color: #eef6ff; }
+  
+  /* Values tweaks—reuses .glass-section, .card-grid, .glass-card from global */
+  .about-values .glass-card { text-align: left; }
+  .about-values .icon-circle { font-size: 1.2rem; }
+  
+  /* Team */
+  .about-team { background: #fff; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .team-card {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    text-align: center;
+    padding: 1.1rem 1rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  }
+  .team-card img {
+    width: 120px; height: 120px; border-radius: 50%;
+    object-fit: cover; margin-bottom: .7rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  }
+  .team-card strong { display: block; color: var(--brand-dark); }
+  .team-card span { color: #64748b; font-size: .98rem; }
+  
+  /* CTA */
+  .cta-wrap { background: #fff; padding-top: 0; }
+  .cta-card {
+    background:
+      linear-gradient(#fdfdfb, #fdfdfb) padding-box,
+      linear-gradient(93deg, var(--blue), var(--accent)) border-box;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
+    max-width: 880px;
+    margin: 0 auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    text-align: center;
+  }
+  
+  /* Mobile niceties */
+  @media (max-width: 640px) {
+    .about-hero { padding: 3.2rem 0 2.8rem; }
+    .about-subtitle { font-size: 1.02rem; }
+  }
+  

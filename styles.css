@@ -225,153 +225,319 @@
   }
   
   /* =========================
-     Program Runway (Apple-style)
+     Program Runway 
      ========================= */
-  /* Section scaffolding */
-  #program-runway{ position:relative; }
-  #program-runway .section-head{
-    padding-top:clamp(16px,2.5vw,28px);
-    padding-bottom:clamp(8px,1.6vw,16px);
+
+/* Section scaffolding */
+#program-runway { position: relative; }
+#program-runway .section-head{
+  padding-top: clamp(16px, 2.5vw, 28px);
+  padding-bottom: clamp(8px, 1.6vw, 16px);
+}
+
+/* Stage height scales with content; keep generous space for sticky scene */
+.hstage { position: relative; height: 900vh; }
+@media (max-width: 940px){ .hstage { height: 700vh; } }
+@media (max-width: 520px){ .hstage { height: 600vh; } }
+
+.sticky{
+  position: sticky;
+  top: var(--nav-offset);
+  height: calc(var(--vh) * 100 - var(--nav-offset));
+  overflow: hidden;
+  z-index: 1;
+  padding-bottom: max(env(safe-area-inset-bottom), 0px);
+}
+.persp{ perspective: 1600px; width: 100%; height: 100%; }
+.pan{
+  height: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100vw;
+  will-change: transform;
+}
+
+/* Phase panels */
+.phase{
+  position: relative;
+  padding: 10vh 6vw;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 3vh;
+  /* Enable container queries so card grid adapts to *available* width (zoom-safe) */
+  container-type: inline-size;
+}
+.phase h2{
+  font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  font-weight: 800; margin: 0;
+  font-size: clamp(1.8rem, 1.1rem + 3.2vw, 3.2rem);
+}
+.phase .sub{ color: var(--muted); font-weight: 700; }
+
+/* Phase tint halos (kept) */
+.phase[data-phase="Anchoring"]::before,
+.phase[data-phase="Exploration"]::before,
+.phase[data-phase="Rooting"]::before{
+  content:""; position:absolute; inset:-20vh -10vw; z-index:-1;
+  filter: blur(60px) saturate(120%); opacity:.35; transform: translateZ(-200px) scale(1.2);
+}
+.phase[data-phase="Anchoring"]::before{ background:radial-gradient(600px 400px at 20% 30%, #4f46e5 0%, transparent 60%); }
+.phase[data-phase="Exploration"]::before{ background:radial-gradient(600px 400px at 80% 40%, #10b981 0%, transparent 60%); }
+.phase[data-phase="Rooting"]::before{ background:radial-gradient(600px 400px at 50% 10%, #f472b6 0%, transparent 60%); }
+
+/* =========================
+   Cards (grid + visuals + a11y)
+   ========================= */
+
+/* Grid defaults to 1 column for maximum readability at any zoom */
+.cards{
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+  align-content: center;
+}
+
+/* Scale up by available inline size, not viewport (zoom-robust) */
+@container (min-width: 620px){
+  .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@container (min-width: 980px){
+  .cards{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@container (min-width: 1280px){
+  .cards{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+
+/* If you need a non-CQ fallback, uncomment:
+.cards{ grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
+*/
+
+/* Color/contrast tokens for better readability */
+:root{
+  --card-bg:#0f1729;
+  --card-text:#e5ebff;
+  --card-muted:#cbd5e1;
+  --card-border:rgba(255,255,255,.14);
+  --focus:#93c5fd;
+}
+
+/* Card chrome */
+.card{
+  min-width: 0;
+  background: linear-gradient(180deg, var(--card-bg), #0b1220);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+  color: var(--card-text);
+
+  /* Softer 3D to reduce zoom blur; will switch off when tight */
+  transform: translateY(18px) rotateX(8deg);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  filter: saturate(.95) brightness(.98);
+
+  opacity: 0; /* revealed via .revealed */
+  transition:
+    transform .6s cubic-bezier(.2,.7,.2,1),
+    opacity .6s ease,
+    filter .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+  will-change: transform, opacity;
+}
+.card.revealed{ transform: none; opacity: 1; }
+.card:hover{ box-shadow: 0 16px 40px rgba(0,0,0,.45); border-color: #a7b3ff44; }
+
+/* Turn off 3D when space is tight (incl. high zoom making it effectively tight) */
+@container (max-width: 619px){
+  .card{ transform: none; }
+}
+
+/* Respect motion/contrast prefs */
+@media (prefers-reduced-motion: reduce){
+  .pan, .card, .fill{ transition: none !important; }
+  .card{ transform: none !important; opacity: 1 !important; }
+}
+@media (prefers-contrast: more){
+  .card{ border-color: rgba(255,255,255,.25); }
+  .pill, .chip{ border-color: rgba(255,255,255,.35) !important; }
+}
+@media (forced-colors: active){
+  .card, .pill, .chip{ border: 1px solid CanvasText; }
+}
+
+/* Card inner text */
+.head{ display:flex; align-items:center; justify-content:space-between; gap:.8rem; margin-bottom:.35rem; }
+.pill{
+  padding:.3rem .8rem; border-radius:999px; border:1px solid #4f46e5aa;
+  color:#c7d2fe; background:#312e81aa; font-weight:900; font-size:.9rem; letter-spacing:.02em;
+}
+.title{ font-weight:800; font-size: clamp(1rem, .98rem + .3vw, 1.15rem); margin:.15rem 0 .5rem; }
+.card p{ margin:.25rem 0 .5rem; color: var(--card-muted); font-size: clamp(.95rem, .88rem + .2vw, 1rem); }
+.card ul{ margin:.2rem 0 0 1.1rem; color:#a9b6da; }
+
+/* Chips + details */
+.meta{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.4rem 0 .6rem; }
+.chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.22rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.12);
+  background:#0e1530; font-weight:800; font-size:.78rem; color:#d3dbff;
+}
+.chip svg{ width:14px; height:14px; opacity:.8; fill:currentColor; }
+
+.details{
+  margin-top:.5rem; border-top:1px dashed rgba(255,255,255,.14);
+  padding-top:.6rem; max-height:0; overflow:hidden; transition:max-height .35s ease;
+}
+.card.expanded .details{ max-height: 720px; } /* JS sets exact max-height on open */
+
+/* Toggle control (ensure tap target ≥44px) */
+.toggle{
+  margin-top:.6rem; display:inline-flex; align-items:center; gap:.5rem;
+  font-weight:900; font-size:.95rem; color:#c7d2fe; background:none; border:none; cursor:pointer;
+  min-height:44px; min-width:44px;
+}
+.caret{ width:12px; height:12px; transform: rotate(0deg); transition: transform .2s ease; fill: currentColor; }
+.card.expanded .caret{ transform: rotate(180deg); }
+
+/* Focus visibility for keyboard users at any zoom */
+.card:focus-visible,
+.toggle:focus-visible{
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: calc(var(--radius) + 2px);
+}
+
+/* =========================
+   Week progress (bottom)
+   ========================= */
+.weekbar{
+  position: sticky; bottom: 0; z-index: 2;
+  padding: .7rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  backdrop-filter: blur(10px);
+  background: linear-gradient(#0b0f1acc, #0b0f1acc);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* Prevent sticky weekbar from covering scrolled targets at high zoom */
+html { scroll-padding-bottom: 120px; }
+@media (max-width: 520px){ html { scroll-padding-bottom: 160px; } }
+
+.rail{
+  position:relative; height:6px; border-radius:999px; background:#19213a;
+  overflow:hidden; margin:0 auto .5rem; max-width:min(920px, 92vw);
+}
+.fill{
+  position:absolute; inset:0 auto 0 0; width:8.33%;
+  background: linear-gradient(93deg, var(--blue), var(--accent));
+  border-radius:999px; transition: width .28s ease;
+}
+.dots{
+  list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center;
+  margin:.4rem auto 0; padding:0; max-width:92vw;
+}
+.dots li{
+  display:grid; place-items:center; width:22px; height:22px; border-radius:50%;
+  background:#1a223c; color:#c7d2fe; font-weight:900; font-size:.8rem; border:1px solid #2a3763; cursor:pointer;
+  min-width:44px; min-height:44px; /* zoom-friendly target */
+}
+.dots li.active{ background:#312e81; border-color:#4338ca; color:#fff; }
+.dots li.done{ background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
+
+/* =========================
+   Rings overlay (decoration)
+   ========================= */
+#program-runway .rings{
+  position:absolute; inset:-20vh -10vw 0 -10vw; pointer-events:none; z-index:0;
+}
+.ring{ position:absolute; border:1px solid rgba(255,255,255,.07); border-radius:50%; filter:blur(.3px); }
+
+/* =========================
+   Responsive pinning + safe touch behavior
+   ========================= */
+@media (max-width:1200px){ .cards{ gap: 1rem; } }
+@media (max-width:940px){ /* grid steps handled by container queries */ }
+@media (max-width:520px){
+  .phase{ padding: clamp(40px, 8vh, 80px) clamp(16px, 5vw, 24px); }
+  .title{ font-size: 1rem; }
+  .card{ box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+}
+
+/* Touch niceties */
+#program-runway{ touch-action: pan-y; overscroll-behavior: contain; }
+
+/* Optional user toggle to “flatten” cards (if you add the button) */
+.flat-cards .card{ transform: none !important; }
+
+
+/* Weekbar uses the same height token */
+#program-runway .weekbar{
+  min-height: var(--weekbar-h);
+  z-index: 2;
+}
+
+/* Keep native scroll-to targets above the weekbar at any zoom */
+html{
+  scroll-padding-bottom: calc(var(--weekbar-h) + 24px);
+}
+
+/* Give the last bit of the phase extra breathing room so it never hides behind the bar */
+#program-runway .phase{
+  padding-bottom: calc(10vh + var(--weekbar-h));
+}
+
+/* Default: stacked container is not present; if JS builds it, we reveal via class */
+#runway-simple { display: none; }
+
+/* Only hide the fancy runway after JS switches to simple mode on phones */
+@media (max-width: 640px){
+  #program-runway.mode-simple .hstage,
+  #program-runway.mode-simple .weekbar,
+  #program-runway.mode-simple .rings{
+    display: none !important;
   }
-  
-  /* stage */
-  .hstage{ position:relative; height:900vh; }
-  @media (max-width:940px){ .hstage{ height:700vh; } }
-  @media (max-width:520px){ .hstage{ height:600vh; } }
-  
-  .sticky{
-    position:sticky;
-    top:var(--nav-offset);
-    height:calc(var(--vh) * 100 - var(--nav-offset));
-    overflow:hidden; z-index:1;
-    padding-bottom:max(env(safe-area-inset-bottom),0px);
+  #program-runway.mode-simple #runway-simple{
+    display: block;
   }
-  .persp{ perspective:1600px; width:100%; height:100%; }
-  .pan{ height:100%; display:grid; grid-auto-flow:column; grid-auto-columns:100vw; will-change:transform; }
-  
-  /* phase panels */
-  .phase{
-    position:relative; padding:10vh 6vw;
-    display:grid; grid-template-rows:auto 1fr; gap:3vh;
+
+  /* Stacked layout styles */
+  .runway-simple .phase--stack{
+    padding: 28px 0 18px;
+    border-top: 1px solid rgba(2,6,23,.06);
   }
-  .phase h2{
-    font-family:ui-serif,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;
-    font-weight:800; margin:0;
-    font-size:clamp(1.8rem,1.1rem + 3.2vw,3.2rem);
+  .runway-simple .phase--stack:first-of-type{
+    border-top: 0; padding-top: 8px;
   }
-  .phase .sub{ color:var(--muted); font-weight:700; }
-  
-  /* phase tint halos */
-  .phase[data-phase="Anchoring"]::before,
-  .phase[data-phase="Exploration"]::before,
-  .phase[data-phase="Rooting"]::before{
-    content:""; position:absolute; inset:-20vh -10vw; z-index:-1;
-    filter:blur(60px) saturate(120%); opacity:.35; transform:translateZ(-200px) scale(1.2);
+  .runway-simple .phase--stack .phase-head .sub{
+    color: var(--muted); margin-top: 4px; font-weight: 600;
   }
-  .phase[data-phase="Anchoring"]::before{ background:radial-gradient(600px 400px at 20% 30%, #4f46e5 0%, transparent 60%); }
-  .phase[data-phase="Exploration"]::before{ background:radial-gradient(600px 400px at 80% 40%, #10b981 0%, transparent 60%); }
-  .phase[data-phase="Rooting"]::before{ background:radial-gradient(600px 400px at 50% 10%, #f472b6 0%, transparent 60%); }
-  
-  /* cards */
-  .cards{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.1rem; align-content:center; }
-  .card{
-    min-width:0;
-    background:linear-gradient(180deg,#0f1729,#0b1220);
-    border:1px solid rgba(255,255,255,.07); border-radius:var(--radius);
-    padding:1.2rem 1.2rem 1rem; box-shadow:var(--shadow);
-    transform:translateY(24px) rotateX(14deg); opacity:0; filter:saturate(.9) brightness(.95);
-    transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease, filter .35s ease, box-shadow .35s ease, border-color .35s ease;
-    will-change:transform, opacity;
+
+  .runway-simple .cards--stack{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 10px;
   }
-  .card.revealed{ transform:none; opacity:1; }
-  .card:hover{ box-shadow:0 16px 40px rgba(0,0,0,.45); border-color:#a7b3ff44; }
-  .head{ display:flex; align-items:center; justify-content:space-between; gap:.8rem; margin-bottom:.35rem; }
-  .pill{ padding:.28rem .7rem; border-radius:999px; border:1px solid #4f46e5aa; color:#c7d2fe; background:#312e81aa; font-weight:900; font-size:.82rem; letter-spacing:.02em; }
-  .title{ font-weight:800; font-size:1.06rem; margin:.15rem 0 .5rem; }
-  .card p{ margin:.25rem 0 .5rem; color:#c2cbe7; font-size:clamp(.95rem,.88rem + .2vw,1rem); }
-  .card ul{ margin:.2rem 0 0 1.1rem; color:#a9b6da; }
-  
-  /* chips + details */
-  .meta{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.4rem 0 .6rem; }
-  .chip{
-    display:inline-flex; align-items:center; gap:.4rem;
-    padding:.22rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.08);
-    background:#0e1530; font-weight:800; font-size:.78rem; color:#d3dbff;
+
+  /* Cards always visible and cheaper on touch */
+  .runway-simple .card{
+    transform: none !important;
+    opacity: 1 !important;
+    box-shadow: var(--shadow-sm);
   }
-  .chip svg{ width:14px; height:14px; opacity:.8; fill:currentColor; }
-  .details{
-    margin-top:.5rem; border-top:1px dashed rgba(255,255,255,.12);
-    padding-top:.6rem; max-height:0; overflow:hidden; transition:max-height .35s ease;
-  }
-  .card.expanded .details{ max-height:720px; }
-  .toggle{
-    margin-top:.6rem; display:inline-flex; align-items:center; gap:.5rem;
-    font-weight:900; font-size:.9rem; color:#c7d2fe; background:none; border:none; cursor:pointer;
-  }
-  .caret{ width:12px; height:12px; transform:rotate(0deg); transition:transform .2s ease; fill:currentColor; }
-  .card.expanded .caret{ transform:rotate(180deg); }
-  
-  /* week progress (bottom) */
-  .weekbar{
-    position:sticky; bottom:0; z-index:2;
-    padding:.7rem 1rem calc(1rem + env(safe-area-inset-bottom));
-    backdrop-filter:blur(10px);
-    background:linear-gradient(#0b0f1acc,#0b0f1acc);
-    border-top:1px solid rgba(255,255,255,.08);
-  }
-  .rail{
-    position:relative; height:6px; border-radius:999px; background:#19213a;
-    overflow:hidden; margin:0 auto .5rem; max-width:min(920px,92vw);
-  }
-  .fill{
-    position:absolute; inset:0 auto 0 0; width:8.33%;
-    background:linear-gradient(93deg,var(--blue),var(--accent));
-    border-radius:999px; transition:width .28s ease;
-  }
-  .dots{
-    list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center;
-    margin:.4rem auto 0; padding:0; max-width:92vw;
-  }
-  .dots li{
-    display:grid; place-items:center; width:22px; height:22px; border-radius:50%;
-    background:#1a223c; color:#c7d2fe; font-weight:900; font-size:.8rem; border:1px solid #2a3763; cursor:pointer;
-  }
-  .dots li.active{ background:#312e81; border-color:#4338ca; color:#fff; }
-  .dots li.done{ background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
-  
-  /* rings overlay (no layout height) */
-  #program-runway .rings{
-    position:absolute; inset:-20vh -10vw 0 -10vw; pointer-events:none; z-index:0;
-  }
-  .ring{ position:absolute; border:1px solid rgba(255,255,255,.07); border-radius:50%; filter:blur(.3px); }
-  
-  /* responsive: cards per row */
-  @media (max-width:1200px){ .cards{ gap:1rem; } }
-  @media (max-width:940px){ .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  @media (max-width:520px){
-    .cards{ grid-template-columns:1fr; }
-    .phase{ padding:clamp(40px,8vh,80px) clamp(16px,5vw,24px); }
-    .title{ font-size:1rem; }
-    .card{ box-shadow:0 8px 22px rgba(0,0,0,.35); }
-  }
-  
-  /* motion/accessibility */
-  @media (hover:none){ .card:hover{ box-shadow:var(--shadow); border-color:rgba(255,255,255,.07); } }
-  @media (prefers-reduced-motion: reduce){
-    .pan, .card, .fill{ transition:none !important; }
-    .card{ transform:none !important; opacity:1 !important; }
-  }
-  @media (prefers-reduced-transparency: reduce){
-    .weekbar{ backdrop-filter:none; background:#0b0f1a; }
-  }
-  
-  /* touch niceties */
-  #program-runway{ touch-action:pan-y; overscroll-behavior:contain; }
-  
-  /* nav offset per breakpoint */
-  @media (max-width:940px){ :root{ --nav-offset:64px; } }
-  @media (max-width:520px){ :root{ --nav-offset:56px; } }
-  
+  .runway-simple .card:hover{ box-shadow: var(--shadow-sm); }
+
+  .runway-simple .title{ font-size: 1rem; }
+  .runway-simple .card p{ font-size: .98rem; }
+}
+
+/* Keep your existing desktop runway/card styles as-is.
+   Make sure --vh is used in .sticky height (you already have this):
+   .sticky{ height: calc(var(--vh) * 100 - var(--nav-offset)); }
+*/
+
+
   /* =========================
      Philosophy
      ========================= */

@@ -39,9 +39,11 @@
   </style>
 </head>
 <body>
+
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <nav class="container nav-inner" aria-label="Main navigation">
+      <!-- Brand (left) -->
       <a href="/" class="brand" aria-label="Sthir Home">
         <img src="./images/logo.jpeg" alt="" class="brand-logo" />
         <div class="brand-text">
@@ -49,8 +51,12 @@
           <span class="brand-tagline">Sit Sthir, Stand Tall</span>
         </div>
       </a>
-      <ul class="nav-links" id="nav-links">
 
+      <!-- Spacer pushes links to the right -->
+      <div class="nav-spacer" aria-hidden="true"></div>
+
+      <!-- Desktop links (right) -->
+      <ul class="nav-links" id="nav-links">
         <li><a href="/#services">Programs</a></li>
         <li><a href="/#philosophy">Philosophy</a></li>
         <li><a href="/#ai-tools">AI Tools</a></li>
@@ -58,7 +64,6 @@
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/about">About</a></li>
-
         <li style="margin-left:1.2rem; display:flex; align-items:center; height:100%;">
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing"
@@ -78,11 +83,45 @@
           </a>
         </li>
       </ul>
-      <button id="nav-toggle" class="nav-toggle" aria-label="Open Menu" aria-expanded="false">
+
+      <!-- Hamburger button -->
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open Menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </nav>
+
+    <!-- Mobile menu -->
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="/#services">Programs</a></li>
+        <li><a href="/#philosophy">Philosophy</a></li>
+        <li><a href="/#ai-tools">AI Tools</a></li>
+        <li><a href="/#testimonials">Testimonials</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/about">About</a></li>
+        <li style="margin-left:1.2rem; display:flex; align-items:center; height:100%;">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing"
+            target="_blank" rel="noopener"
+            style="
+              display:inline-flex; align-items:center; justify-content:center;
+              padding:0.25rem 1.1rem; border-radius:999px; font-weight:500; font-size:1.07rem;
+              cursor:pointer; border:none;
+              background:linear-gradient(93deg, #2563eb 65%, #93c5fd 100%);
+              color:#fff; box-shadow:0 2px 8px 0 rgba(37,99,235,0.18); text-decoration:none; line-height:1.35;
+              transition:background 0.18s, box-shadow 0.18s, transform 0.14s; outline:none;
+            "
+            onmouseover="this.style.background='linear-gradient(93deg, #1e3a8a 90%, #bfdbfe 100%)'; this.style.transform='translateY(-2px) scale(1.03)'; this.style.boxShadow='0 6px 18px rgba(37,99,235,0.28)';"
+            onmouseout="this.style.background='linear-gradient(93deg, #2563eb 65%, #93c5fd 100%)'; this.style.transform='none'; this.style.boxShadow='0 2px 8px 0 rgba(37,99,235,0.18)';"
+          >
+            Apply Now
+          </a>
+        </li>
+      </ul>
+    </nav>
   </header>
+
 
 <!-- Hero / Welcome Section -->
 <section class="hero" id="hero">
@@ -93,23 +132,6 @@
 
     <!-- Main Heading -->
     <h1 class="hero-title font-playfair">Welcome to Sthir</h1>
-
-    <!-- New Welcome Text -->
-    <!-- <p class="hero-desc">
-      Young adults today are surrounded by endless information yet struggle to find focus.  
-      Their feeds overflow with inspiration, but turning it into action feels paralyzing.  
-      They’re always “connected,” yet often feel unseen in their circles.
-    </p>
-    <p class="hero-desc">
-      At <strong>Sthir</strong>, we recognize these realities and offer a <em>Leadership Sandbox</em>—  
-      a mindful space to connect deeply with yourself and express meaningfully to the world. 
-    </p>
-    <p class="hero-desc">
-      By taking on a project of their choice, participants explore what matters to them,  
-      test ideas in action, and grow through doing, not just thinking. With thoughtful tools,  
-      guided reflection, and collaboration, Sthir helps turn overwhelm into clarity,  
-      inspiration into confident action, and disconnection into conscious connection.
-    </p> -->
     
     <p class="hero-desc">
     Be a part of mindful leadership sandbox where young people connect to themselves, test ideas in the real world, and grow through doing—not just thinking.
@@ -185,18 +207,18 @@
   </section>
 
 
-<!-- Philosophy Section -->
-<section id="philosophy" class="section philosophy-bg">
-  <div class="container" data-aos="fade-up">
-    <h2 class="section-title font-playfair">The Meaning of Sthir (स्थिर)</h2>
-    <h3 class="philosophy-subtitle">
-      Sthir is <span id="word1">स्थिर</span> in <span id="word2">Urdu</span>
-    </h3>
-    <p class="philosophy-desc">
-      In Sanskrit, 'Sthir' means stable, calm, and constant. It's the foundation upon which great things are built. Before you can build a successful company, you must first build a resilient self. We help you find your center, your 'Sthir', so you can stand tall and lead with confidence.
-    </p>
-  </div>
-</section>
+  <!-- Philosophy Section -->
+  <section id="philosophy" class="section philosophy-bg">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title font-playfair">The Meaning of Sthir (स्थिर)</h2>
+      <h3 class="philosophy-subtitle">
+        Sthir is <span id="word1">स्थिर</span> in <span id="word2">Urdu</span>
+      </h3>
+      <p class="philosophy-desc">
+        In Sanskrit, 'Sthir' means stable, calm, and constant. It's the foundation upon which great things are built. Before you can build a successful company, you must first build a resilient self. We help you find your center, your 'Sthir', so you can stand tall and lead with confidence.
+      </p>
+    </div>
+  </section>
 
 
   <!-- AI Powered Tools Section -->
@@ -455,6 +477,8 @@
   <script src="interest.js"></script>
   <script src="sthirLoop.js"></script>
   <script src="testimonial.js"></script>
+  <script src="hamburgermenu.js"></script>
   <script src="main.js"></script>
+
 </body>
 </html>

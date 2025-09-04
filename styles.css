@@ -1,6 +1,7 @@
 /* =========================
    Root: colors, fonts, layout
    ========================= */
+
    :root{
     --blue:#2563eb;
     --blue-dark:#1e3a8a;
@@ -284,29 +285,102 @@
   .glass-card p{ color:#444; font-size:1rem; margin:0; }
   
   /* =========================
-     About
-     ========================= */
-  .about-bg{ background:#fff; }
-  .about-content{
-    display:flex; gap:3.4rem; align-items:center; justify-content:center;
-    max-width:1050px; margin:0 auto;
+    12-Week Roadmap
+    ========================= */
+      
+  /* === Roadmap: heading + phase summary cards (v5) === */
+  .roadmap-section{ background: var(--brand-bg); padding-top:4.5rem; padding-bottom:4.5rem; }
+
+  /* heading */
+  .roadmap-head{ text-align:center; max-width:900px; margin:0 auto 1.1rem; }
+  .roadmap-head .section-title{ margin-bottom:.35rem; }
+  .roadmap-subtitle{ color:#475569; font-size:1.05rem; }
+
+  /* map shell */
+  .roadmap-map{
+    position:relative; border-radius:20px; overflow:hidden;
+    background:var(--brand-bg);
+    box-shadow:0 10px 28px rgba(2,6,23,.06), inset 0 1px 0 rgba(255,255,255,.8);
   }
-  .about-img{ flex:0 0 270px; position:relative; }
-  .about-portrait{
-    border-radius:999px; width:220px; height:220px; object-fit:cover;
-    box-shadow:0 8px 48px rgba(37,99,235,.19); margin:0 auto;
+  #roadSvg{ width:100%; height:auto; display:block; }
+
+  /* road – broader + smoother; no dark overlay */
+  #roadBase{ stroke:#e5edf7; stroke-width:64; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+  #roadDash{ stroke:#ffffff; stroke-width:7; stroke-linecap:round; stroke-dasharray:14 22; opacity:.98; fill:none; }
+  #roadEdge{ display:none; }
+
+  /* phase separators + pills */
+  .phase-sep line{
+    stroke:#94a3b8; stroke-width:2; stroke-dasharray:4 10; opacity:.6;
+    vector-effect:non-scaling-stroke; pointer-events:none;
   }
-  .about-logo{ position:absolute; bottom:10px; right:20px; }
-  .sthir-logo{
-    width:48px; height:48px; border-radius:50%; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.25);
+  .phase-pill rect{
+    fill:#fff; stroke:#e2e8f0; rx:12; ry:12;
+    filter: drop-shadow(0 2px 8px rgba(2,6,23,.06));
   }
-  .about-text{ flex:1 1 320px; }
-  .about-text p{ font-size:1.09rem; color:#525252; margin:0 0 .95rem; }
-  @media (max-width:850px){
-    .about-content{ flex-direction:column; text-align:center; gap:2rem; }
-    .about-img{ margin-bottom:1.3rem; }
+  .phase-pill text{ fill:#0b1b3a; font:700 13px/1 var(--font-body); }
+
+  /* waypoints */
+  .waypoint circle{
+    stroke:#94a3b8; stroke-width:2; cursor:pointer;
+    transition: transform .12s ease, r .12s ease, opacity .12s ease;
   }
-  
+  .waypoint[data-phase="1"] circle{ fill:#7dd3fc; }
+  .waypoint[data-phase="2"] circle{ fill:#60a5fa; }
+  .waypoint[data-phase="3"] circle{ fill:#a78bfa; }
+  .waypoint:hover circle{ transform:translateY(-2px); }
+  .waypoint[aria-current="step"] circle{ r:11; }
+  .waypoint:focus-visible circle{ outline:none; stroke:#1e3a8a; stroke-width:3; }
+  .wp-num{ fill:#0b1b3a; font:700 11px/1 var(--font-body); pointer-events:none; }
+  .wp-tag{ fill:#334155; font:600 11px/1 var(--font-body); pointer-events:none; }
+
+  /* info panel */
+  .roadmap-panel{
+    position:absolute; right:12px; bottom:12px; z-index:5;
+    width:min(360px, 92%); background:#fff; color:#0f172a;
+    border:1px solid #e2e8f0; border-radius:14px; padding:1rem 1.1rem 1.1rem;
+    box-shadow:0 10px 28px rgba(2,6,23,.12);
+  }
+  .roadmap-panel.hidden{ display:none; }
+  .rp-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:.22rem .6rem; border-radius:999px; font-weight:700; font-size:.88rem;
+    background:linear-gradient(93deg, var(--blue) 65%, var(--accent) 100%); color:#fff; margin-bottom:.35rem;
+  }
+  .roadmap-panel h3{ margin:.1rem 0 .5rem; font-size:1.1rem; color:#0b1b3a; }
+  .rp-list{ margin:0; padding-left:1.1rem; }
+  .rp-list li{ margin:.28rem 0; color:#334155; }
+
+  /* arrows */
+  .roadmap-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:42px; height:42px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:#ffffffcc; border:1px solid #e2e8f0; color:#0b1b3a;
+    cursor:pointer; z-index:6; backdrop-filter: blur(4px);
+    transition:transform .12s ease, background .18s ease, border .18s ease, box-shadow .18s ease;
+  }
+  .roadmap-arrow:hover{ transform:translateY(-50%) scale(1.05); box-shadow:0 6px 14px rgba(15,23,42,.1); }
+  .roadmap-arrow:focus-visible{ outline:2px solid #bfdbfe; }
+  .roadmap-prev{ left: clamp(6px, 2vw, 18px); }
+  .roadmap-next{ right: clamp(6px, 2vw, 18px); }
+
+  /* phase summary cards below map */
+  .phase-cards{
+    display:grid; gap:1.1rem; margin-top:1.25rem;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  }
+  .phase-card{
+    background:#fff; border:1px solid #e2e8f0; border-radius:16px;
+    padding:1rem 1.1rem; box-shadow:0 8px 24px rgba(2,6,23,.06);
+  }
+  .phase-card h3{ margin:.1rem 0 .4rem; font-size:1.12rem; color:#0b1b3a; }
+  .phase-card p{ margin:0 0 .4rem; color:#334155; }
+  .phase-card ul{ margin:.2rem 0 0; padding-left:1.1rem; color:#475569; }
+  .phase-card[data-phase="1"]{ border-top:4px solid #7dd3fc; }
+  .phase-card[data-phase="2"]{ border-top:4px solid #60a5fa; }
+  .phase-card[data-phase="3"]{ border-top:4px solid #a78bfa; }
+
   /* =========================
      Philosophy
      ========================= */
@@ -518,26 +592,4 @@
   @media (max-width:400px){
     .hero{ min-height:520px; }
   }
-  
-  /* =========================
-     Page composition notes:
-     - Wrap major sections in <div class="container">...</div>
-     - Navbar markup example:
-       <header class="navbar">
-         <div class="container nav-inner">
-           <a class="brand" href="/">
-             <img class="brand-logo" ... />
-             <span class="brand-text">
-               <span class="brand-title">Brand</span>
-               <span class="brand-tagline">Tagline</span>
-             </span>
-           </a>
-           <div class="nav-spacer"></div>
-           <ul class="nav-links"> ... </ul>
-           <button class="btn btn-primary nav-btn">Call to action</button>
-           <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
-         </div>
-         <nav class="mobile-menu" id="mobileMenu"> ... </nav>
-       </header>
-     ========================= */
   

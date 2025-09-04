@@ -146,3 +146,138 @@ function toggleFAQ(button) {
     }
 }
 
+  // 12-Week Roadmap interactions
+
+(function(){
+  const base = document.getElementById('roadBase');
+  const dash = document.getElementById('roadDash');
+  const g = document.getElementById('waypoints');
+  const panel = document.getElementById('roadPanel');
+  const rpWeek = document.getElementById('rpWeek');
+  const rpTitle = document.getElementById('rpTitle');
+  const rpList = document.getElementById('rpList');
+  const prevBtn = document.querySelector('.roadmap-prev');
+  const nextBtn = document.querySelector('.roadmap-next');
+
+  if(!base || !g) return;
+
+  // normalized positions along the path (smooth spacing)
+  const t = [0.02,0.10,0.18,0.26,0.38,0.46,0.54,0.62,0.73,0.82,0.90,0.97];
+
+  // short tags shown near dots
+  const tags = [
+    'Autopilot','Self & Systems','Anchoring Map','Commit',
+    'Bold Step','Team','JTBD','Synthesis',
+    'Influence','Network','MVP','Commitment'
+  ];
+
+  // phase mapping (1–4, 5–8, 9–12)
+  const phaseOf = i => (i<4?1:(i<8?2:3));
+
+  // lightweight content for the panel
+  const info = [
+    {title:'Disrupting Autopilot', bullets:[
+      'Neuroscience of attention & patterns',
+      'Audit a day to spot default loops',
+      'Pick one area to observe this week'
+    ]},
+    {title:'Seeing Self & Systems', bullets:[
+      'Map habits + social structures',
+      'Identify functional / emotional / social needs',
+      'Run a 5-Whys on your problem'
+    ]},
+    {title:'Anchoring Map', bullets:[
+      'Co-create your personal Anchoring Map',
+      'Separate signal from noise',
+      'Form early teams around a problem'
+    ]},
+    {title:'Commit to Explore', bullets:[
+      'Cognitive flexibility through exercises',
+      'Choose one problem space to pursue',
+      'Articulate a clear problem statement'
+    ]},
+    {title:'Bold Step', bullets:[
+      'Design a small real-world experiment',
+      'Test desirability with real people',
+      'Reflect: doubt → action'
+    ]},
+    {title:'Teaming with Humans', bullets:[
+      'Build a Team Charter (roles & norms)',
+      'Practice deep listening / open questions',
+      'Collaboration across assumptions'
+    ]},
+    {title:'Jobs-To-Be-Done', bullets:[
+      'Map functional, emotional, social jobs',
+      'Interview 1–2 people for unmet needs',
+      'Refine your problem lens'
+    ]},
+    {title:'Synthesis', bullets:[
+      'Cluster insights into a Synthesis Map',
+      'Create “How might we…?” directions',
+      'Pick hypotheses for next phase'
+    ]},
+    {title:'Power & Influence', bullets:[
+      'Map your influence (French & Raven)',
+      'Identify gaps & growth actions',
+      'Set 1 influence action for 2 weeks'
+    ]},
+    {title:'Social Capital & Experts', bullets:[
+      'Stakeholder map (core / emerging / aspirational)',
+      'Draft and send one real outreach',
+      'Practice value-exchange networking'
+    ]},
+    {title:'MVP Sprint', bullets:[
+      'Define the smallest testable MVP',
+      'Rapid prototyping + peer critique',
+      'Set 3 next milestones'
+    ]},
+    {title:'Commitment Ceremony', bullets:[
+      'Share MVP / plan to peers & guests',
+      'Feedback & broaden perspective',
+      'Write your leadership commitment'
+    ]}
+  ];
+
+  const total = base.getTotalLength();
+  let active = 0;
+
+  // draw waypoints exactly on the curve
+  t.forEach((p, i) => {
+    const pt = base.getPointAtLength(total * p);
+    const grp = document.createElementNS('http://www.w3.org/2000/svg','g');
+    grp.classList.add('waypoint');
+    grp.setAttribute('data-phase', String(phaseOf(i)));
+    grp.setAttribute('tabindex', '0');
+    grp.setAttribute('role', 'button');
+    grp.setAttribute('aria-label', `Week ${i+1}: ${info[i].title}`);
+    grp.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+    grp.innerHTML = `
+      <circle r="9"></circle>
+      <text class="wp-num" x="0" y="-14" text-anchor="middle">${i+1}</text>
+      <text class="wp-tag" x="0" y="${i%2?22:28}" text-anchor="middle">${tags[i]}</text>
+    `;
+    grp.addEventListener('click', () => setActive(i));
+    grp.addEventListener('keydown', (e) => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); setActive(i);} });
+    g.appendChild(grp);
+  });
+
+  function setActive(i){
+    active = i;
+    [...g.children].forEach((el, idx) => el.setAttribute('aria-current', idx===i ? 'step' : 'false'));
+    rpWeek.textContent = `Week ${i+1}`;
+    rpTitle.textContent = info[i].title;
+    rpList.innerHTML = info[i].bullets.map(b=>`<li>${b}</li>`).join('');
+    panel.classList.remove('hidden');
+  }
+
+  // prev/next controls
+  prevBtn.addEventListener('click', () => setActive((active+11)%12));
+  nextBtn.addEventListener('click', () => setActive((active+1)%12));
+
+  // init to week 1
+  setActive(0);
+
+  // keep dash path identical to base
+  dash.setAttribute('d', base.getAttribute('d'));
+})();
+

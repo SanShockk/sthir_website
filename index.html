@@ -200,60 +200,32 @@
 <!-- =========================
      Program Runway (Horizontal 3x4, then exit vertical)
      ========================= -->
+     <div class="rings" aria-hidden="true"></div>
+
+
+     <header class="hero container">
+     <div>
+     <h1>Sthir 12‑Week Program</h1>
+     <p>Scroll to explore: cards reveal, panels glide, and the progress bar tracks you. Click a week dot to jump.</p>
+     </div>
+     </header>
+     
+     
      <section id="program-runway" class="runway" aria-labelledby="runway-title">
-      <div class="container">
-        <h2 id="runway-title" class="font-playfair section-title">Sthir 12-Week Program</h2>
-      </div>
-    
-      <!-- ⬇️  FULL-BLEED: no .container here -->
-      <div class="hstage" aria-label="Program phases">
-        <div class="hstage-sticky">
-          <div class="hstage-pan" id="hPan" aria-live="polite">
-    
-            <!-- Phase 1: Anchoring (Weeks 1–4) -->
-            <section class="phase-row" data-phase="Anchoring" aria-label="Phase 1">
-              <header class="prow-head">
-                <span class="prow-kicker">Phase 1</span>
-                <h3 class="prow-title font-playfair">Anchoring</h3>
-                <p class="prow-sub">Consciousness begins with disruption.</p>
-              </header>
-              <div class="prow-cards" id="row-anchoring">
-                <!-- Cards injected by JS -->
-              </div>
-            </section>
-    
-            <!-- Phase 2: Exploration (Weeks 5–8) -->
-            <section class="phase-row" data-phase="Exploration" aria-label="Phase 2">
-              <header class="prow-head">
-                <span class="prow-kicker">Phase 2</span>
-                <h3 class="prow-title font-playfair">Exploration</h3>
-                <p class="prow-sub">Courage & confidence are born through action and friction.</p>
-              </header>
-              <div class="prow-cards" id="row-exploration"></div>
-            </section>
-    
-            <!-- Phase 3: Rooting (Weeks 9–12) -->
-            <section class="phase-row" data-phase="Rooting" aria-label="Phase 3">
-              <header class="prow-head">
-                <span class="prow-kicker">Phase 3</span>
-                <h3 class="prow-title font-playfair">Rooting</h3>
-                <p class="prow-sub">Clarity deepens through creation.</p>
-              </header>
-              <div class="prow-cards" id="row-rooting"></div>
-            </section>
-    
-          </div>
-        </div>
-      </div>
-    
-        <!-- Section-scoped bottom week bar (visible only while this section is on screen) -->
-        <nav class="weekbar is-local" aria-label="Week progress">
-          <div class="weekbar-rail" role="progressbar" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1">
-            <div class="weekbar-fill" id="rwFill"></div>
-          </div>
-          <ol class="weekbar-dots weekbar-numbered" id="rwDots" role="listbox" aria-label="Weeks 1 through 12"></ol>
-        </nav>
-    </section>
+     <div class="hstage" aria-label="Program phases">
+     <div class="sticky">
+     <div class="persp">
+     <div class="pan" id="hPan" aria-live="polite"><!-- panels injected --></div>
+     </div>
+     </div>
+     </div>
+     
+     
+     <nav class="weekbar" aria-label="Week progress">
+     <div class="rail" role="progressbar" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1"><div class="fill" id="rwFill"></div></div>
+     <ol class="dots" id="rwDots" role="listbox" aria-label="Weeks 1 through 12"></ol>
+     </nav>
+     </section>
     
 
 

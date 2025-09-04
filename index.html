@@ -10,6 +10,7 @@
 
   <!-- Your global styles -->
   <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="stairmap.css"/>
   <link rel="stylesheet" href="testimonial.css"/>
 
   <!-- Fonts -->
@@ -114,7 +115,6 @@
     </nav>
   </header>
 
-
   <!-- Hero / Welcome Section -->
   <section class="hero" id="hero">
     <div class="container hero-inner" data-aos="fade-up">
@@ -197,146 +197,66 @@
     </div>
   </section>
 
-  <!-- 12-Week Road Map -->
-  <!-- place this right after the Hero section -->
-<section id="roadmap" class="roadmap-section">
-  <div class="container">
-    <div class="roadmap-head">
-      <h2 class="section-title font-playfair">Your 12-Week Journey</h2>
-      <p class="roadmap-subtitle">Three phases from Anchoring → Exploration → Rooting</p>
-    </div>
-
-    <div class="roadmap-map">
-      <button class="roadmap-arrow roadmap-prev" aria-label="Previous week">‹</button>
-      <button class="roadmap-arrow roadmap-next" aria-label="Next week">›</button>
-
-      <!-- widened viewBox so the finish label never clips -->
-      <svg id="roadSvg" viewBox="0 0 1680 520" role="img" aria-label="Sthir 12-week roadmap" preserveAspectRatio="xMidYMid meet">
-        <!-- phase separators -->
-        <g class="phase-sep" aria-hidden="true">
-          <line x1="560"  y1="36" x2="560"  y2="500"/>
-          <line x1="1120" y1="36" x2="1120" y2="500"/>
-          <g class="phase-pill"><rect x="260"  y="24" width="230" height="38" rx="12" ry="12"/><text x="375"  y="48" text-anchor="middle">Phase 1 · Anchoring</text></g>
-          <g class="phase-pill"><rect x="820"  y="24" width="230" height="38" rx="12" ry="12"/><text x="935"  y="48" text-anchor="middle">Phase 2 · Exploration</text></g>
-          <g class="phase-pill"><rect x="1380" y="24" width="230" height="38" rx="12" ry="12"/><text x="1495" y="48" text-anchor="middle">Phase 3 · Rooting</text></g>
-        </g>
-
-        <!-- smoother, broader road -->
-        <path id="roadBase" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
-        <path id="roadDash" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
-
-        <!-- start / finish -->
-        <g aria-hidden="true">
-          <circle cx="40" cy="420" r="6" fill="#0b1b3a"></circle>
-          <text x="56" y="428" font-size="14" fill="#0b1b3a">Start</text>
-          <text x="1620" y="170" font-size="18" fill="#0b1b3a">🏁 Finish</text>
-        </g>
-
-        <!-- waypoints injected by JS -->
-        <g id="waypoints"></g>
-      </svg>
-
-      <!-- info panel -->
-      <aside id="roadPanel" class="roadmap-panel hidden" aria-live="polite">
-        <div class="rp-badge" id="rpWeek">Week 1</div>
-        <h3 id="rpTitle">Title</h3>
-        <ul class="rp-list" id="rpList"></ul>
-      </aside>
-    </div>
-
-    <!-- Phase summaries under the map -->
-    <div class="phase-cards" aria-label="Phase summaries">
-      <article class="phase-card" data-phase="1">
-        <h3>Phase 1 · Anchoring</h3>
-        <p>Notice patterns, slow down, and choose your focus.</p>
-        <ul>
-          <li>Autopilot audit &amp; attention science</li>
-          <li>Create your personal Anchoring Map</li>
-          <li>Commit a problem space to explore</li>
-        </ul>
-      </article>
-      <article class="phase-card" data-phase="2">
-        <h3>Phase 2 · Exploration</h3>
-        <p>Run small tests, collaborate, and learn from people.</p>
-        <ul>
-          <li>Bold real-world experiments</li>
-          <li>Team charter &amp; deep listening</li>
-          <li>Jobs-to-be-Done interviews &amp; synthesis</li>
-        </ul>
-      </article>
-      <article class="phase-card" data-phase="3">
-        <h3>Phase 3 · Rooting</h3>
-        <p>Shape a point of view and ship a tangible outcome.</p>
-        <ul>
-          <li>Influence &amp; network building</li>
-          <li>MVP sprint with feedback loops</li>
-          <li>Leadership commitment &amp; next steps</li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
-  <section id="roadmap" class="roadmap-section">
-    <div class="container">
-      <div class="roadmap-map">
-        <button class="roadmap-arrow roadmap-prev" aria-label="Previous week">‹</button>
-        <button class="roadmap-arrow roadmap-next" aria-label="Next week">›</button>
-
-        <svg id="roadSvg" viewBox="0 0 1600 520" role="img" aria-label="Sthir 12-week roadmap" preserveAspectRatio="xMidYMid meet">
-          <!-- phase separators -->
-          <g class="phase-sep" aria-hidden="true">
-            <!-- lines (at ~33% and ~66%) -->
-            <line x1="533" y1="36" x2="533" y2="500"/>
-            <line x1="1066" y1="36" x2="1066" y2="500"/>
-            <!-- pills -->
-            <g class="phase-pill">
-              <rect x="250" y="24" width="220" height="38" rx="12" ry="12"></rect>
-              <text x="360" y="48" text-anchor="middle">Phase 1 · Anchoring</text>
-            </g>
-            <g class="phase-pill">
-              <rect x="785" y="24" width="220" height="38" rx="12" ry="12"></rect>
-              <text x="895" y="48" text-anchor="middle">Phase 2 · Exploration</text>
-            </g>
-            <g class="phase-pill">
-              <rect x="1318" y="24" width="220" height="38" rx="12" ry="12"></rect>
-              <text x="1428" y="48" text-anchor="middle">Phase 3 · Rooting</text>
-            </g>
-          </g>
-
-          <!-- smooth S-curve road (broader) -->
-          <path id="roadBase" fill="none"
-                d="M 40 420
-                  C 280 360, 460 300, 640 280
-                  S 1040 320, 1225 290
-                  S 1480 260, 1560 190" />
-          <path id="roadDash" fill="none"
-                d="M 40 420
-                  C 280 360, 460 300, 640 280
-                  S 1040 320, 1225 290
-                  S 1480 260, 1560 190" />
-
-          <!-- start / finish -->
-          <g aria-hidden="true">
-            <circle cx="40" cy="420" r="6" fill="#0b1b3a"></circle>
-            <text x="56" y="428" font-size="14" fill="#0b1b3a">Start</text>
-            <text x="1545" y="165" font-size="18" fill="#0b1b3a">🏁 Finish</text>
-          </g>
-
-          <!-- waypoints injected by JS -->
-          <g id="waypoints"></g>
-        </svg>
-
-        <!-- info panel -->
-        <aside id="roadPanel" class="roadmap-panel hidden" aria-live="polite">
-          <div class="rp-badge" id="rpWeek">Week 1</div>
-          <h3 id="rpTitle">Title</h3>
-          <ul class="rp-list" id="rpList"></ul>
-        </aside>
+<!-- =========================
+     Program Runway (Horizontal 3x4, then exit vertical)
+     ========================= -->
+     <section id="program-runway" class="runway" aria-labelledby="runway-title">
+      <div class="container">
+        <h2 id="runway-title" class="font-playfair section-title">Sthir 12-Week Program</h2>
       </div>
-    </div>
-  </section>
-  
+    
+      <!-- ⬇️  FULL-BLEED: no .container here -->
+      <div class="hstage" aria-label="Program phases">
+        <div class="hstage-sticky">
+          <div class="hstage-pan" id="hPan" aria-live="polite">
+    
+            <!-- Phase 1: Anchoring (Weeks 1–4) -->
+            <section class="phase-row" data-phase="Anchoring" aria-label="Phase 1">
+              <header class="prow-head">
+                <span class="prow-kicker">Phase 1</span>
+                <h3 class="prow-title font-playfair">Anchoring</h3>
+                <p class="prow-sub">Consciousness begins with disruption.</p>
+              </header>
+              <div class="prow-cards" id="row-anchoring">
+                <!-- Cards injected by JS -->
+              </div>
+            </section>
+    
+            <!-- Phase 2: Exploration (Weeks 5–8) -->
+            <section class="phase-row" data-phase="Exploration" aria-label="Phase 2">
+              <header class="prow-head">
+                <span class="prow-kicker">Phase 2</span>
+                <h3 class="prow-title font-playfair">Exploration</h3>
+                <p class="prow-sub">Courage & confidence are born through action and friction.</p>
+              </header>
+              <div class="prow-cards" id="row-exploration"></div>
+            </section>
+    
+            <!-- Phase 3: Rooting (Weeks 9–12) -->
+            <section class="phase-row" data-phase="Rooting" aria-label="Phase 3">
+              <header class="prow-head">
+                <span class="prow-kicker">Phase 3</span>
+                <h3 class="prow-title font-playfair">Rooting</h3>
+                <p class="prow-sub">Clarity deepens through creation.</p>
+              </header>
+              <div class="prow-cards" id="row-rooting"></div>
+            </section>
+    
+          </div>
+        </div>
+      </div>
+    
+        <!-- Section-scoped bottom week bar (visible only while this section is on screen) -->
+        <nav class="weekbar is-local" aria-label="Week progress">
+          <div class="weekbar-rail" role="progressbar" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1">
+            <div class="weekbar-fill" id="rwFill"></div>
+          </div>
+          <ol class="weekbar-dots weekbar-numbered" id="rwDots" role="listbox" aria-label="Weeks 1 through 12"></ol>
+        </nav>
+    </section>
+    
+
+
   <!-- Philosophy Section -->
   <section id="philosophy" class="section philosophy-bg">
     <div class="container" data-aos="fade-up">
@@ -350,7 +270,75 @@
     </div>
   </section>
 
+  <!-- Program Scrollytelling (Apple-style) -->
+  <section id="program" class="programfx" aria-labelledby="programfx-title">
+    <div class="container programfx-shell">
+      <!-- Sticky left: Week Tracker -->
+      <aside class="programfx-left" aria-label="Week tracker" aria-live="polite">
+        <header class="programfx-left-head">
+          <span class="badge">Sthir 12-Week Program</span>
+          <h2 id="programfx-title" class="font-playfair">Journey Map</h2>
+        </header>
 
+        <div class="tracker-phase">
+          <div class="tracker-phase-label">Phase</div>
+          <div class="tracker-phase-name" id="fxPhaseName">Anchoring</div>
+        </div>
+
+        <ol class="tracker-weeks" id="fxWeekList" role="listbox" aria-label="Weeks">
+          <!-- JS injects week items (1–12) and highlights current -->
+        </ol>
+
+        <div class="tracker-rail">
+          <div class="tracker-fill" id="fxRail"></div>
+        </div>
+      </aside>
+
+      <!-- Right: Scroll content (phase banners + week panels) -->
+      <div class="programfx-right" id="fxTrack" aria-label="Scrollable weeks">
+        <!-- Phase 1 banner -->
+        <section class="phase-banner" data-phase="Anchoring" aria-label="Phase 1">
+          <div class="phase-banner-inner">
+            <h3 class="phase-kicker">Phase 1</h3>
+            <div class="phase-title font-playfair">Anchoring</div>
+            <p class="phase-sub">Consciousness begins with disruption.</p>
+          </div>
+        </section>
+
+        <!-- Week panels for Phase 1 (JS can also generate; here’s the scaffold) -->
+        <div class="phase-weeks" data-phase="Anchoring">
+          <!-- JS injects Week 1–4 cards -->
+        </div>
+
+        <!-- Phase 2 banner -->
+        <section class="phase-banner" data-phase="Exploration" aria-label="Phase 2">
+          <div class="phase-banner-inner">
+            <h3 class="phase-kicker">Phase 2</h3>
+            <div class="phase-title font-playfair">Exploration</div>
+            <p class="phase-sub">Courage & confidence are born through action and friction.</p>
+          </div>
+        </section>
+
+        <div class="phase-weeks" data-phase="Exploration">
+          <!-- JS injects Week 5–8 -->
+        </div>
+
+        <!-- Phase 3 banner -->
+        <section class="phase-banner" data-phase="Rooting" aria-label="Phase 3">
+          <div class="phase-banner-inner">
+            <h3 class="phase-kicker">Phase 3</h3>
+            <div class="phase-title font-playfair">Rooting</div>
+            <p class="phase-sub">Clarity deepens through creation.</p>
+          </div>
+        </section>
+
+        <div class="phase-weeks" data-phase="Rooting">
+          <!-- JS injects Week 9–12 -->
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- AI Powered Tools Section -->
   <section id="ai-tools" class="section glass-section">
     <div class="container" data-aos="fade-up">
@@ -608,7 +596,13 @@
   <script src="sthirLoop.js"></script>
   <script src="testimonial.js"></script>
   <script src="hamburgermenu.js"></script>
+  <script src="scrollymap.js"></script>
   <script src="main.js"></script>
 
+    
+    
+    
+    
+    
 </body>
 </html>

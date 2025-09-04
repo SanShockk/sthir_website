@@ -1,201 +1,3 @@
-/* Sthir Scrollytelling PRO — no external deps */
-(function(){
-  const $ = (sel, root=document) => root.querySelector(sel);
-  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-  const track = $('#fxTrack');
-  if (!track) return;
-
-  // ---------------- Data (concise; expand bullets whenever you like) ----------------
-  const data = [
-    {
-      phase: 'Anchoring',
-      weeks: [
-        { n:1, title:'Week 1 – Disrupting Autopilot', purpose:'Spotlight present ways of seeing; break routine thinking; open awareness to self.',
-          bullets:['Neuroscience of attention & patterns','Autopilot audit + learner mindset','Daily anchor rituals'] },
-        { n:2, title:'Week 2 – Seeing Self & Systems', purpose:'Visualize how habits + social structures shape worldview.',
-          bullets:['Conditioning & mirror neurons','“My Lens” map (personal + collective)','5-Whys + needs mapping'] },
-        { n:3, title:'Week 3 – Navigate Information Overload', purpose:'Create your Anchoring Map to filter signal from noise.',
-          bullets:['Cognitive overload micro-exercises','Co-create Anchoring Map','Team formation & research approach'] },
-        { n:4, title:'Week 4 – Commit to an Exploration', purpose:'Synthesize discoveries into a clear anchor area & problem statement.',
-          bullets:['Cognitive flexibility & empathy','Perspective Carousel + listening','Articulate problem statement'] },
-      ]
-    },
-    {
-      phase: 'Exploration',
-      weeks: [
-        { n:5, title:'Week 5 – Bold First Steps', purpose:'Transform doubt/distress into action via small experiments.',
-          bullets:['Fear → exec brain activation','Desirability first (DT lens)','Run a tiny desirability test'] },
-        { n:6, title:'Week 6 – Teaming with Diverse Humans', purpose:'Collaboration, listening & open-ended questions.',
-          bullets:['Collab Charter (roles, norms)','Labeling & Peacock exercises','Listening across assumptions'] },
-        { n:7, title:'Week 7 – Jobs-To-Be-Done (JBTD)', purpose:'Uncover functional, emotional, social jobs.',
-          bullets:['JBTD canvas + interviews','Map jobs & struggles','Refine problem lens'] },
-        { n:8, title:'Week 8 – Synthesis & Possibility Framing', purpose:'Sense-make exploration & generate HMW paths.',
-          bullets:['Cluster insights','HMW reframing','Gallery walk + celebrate'] },
-      ]
-    },
-    {
-      phase: 'Rooting',
-      weeks: [
-        { n:9, title:'Week 9 – Power & Influence Mapping', purpose:'See your power objectively; plan to grow influence.',
-          bullets:['French & Raven self-rating','Power Mirror feedback','1 influence action'] },
-        { n:10, title:'Week 10 – Social Capital & Expert Networks', purpose:'Reach out meaningfully; build stakeholder map.',
-          bullets:['Weak ties & reciprocity','Relationship action plan','Draft & send 1 outreach'] },
-        { n:11, title:'Week 11 – MVP Sprint', purpose:'Turn insight into MVP or action plan; test with someone.',
-          bullets:['Define MVP/pilot','Rapid prototyping + critique','Next 3 milestones'] },
-        { n:12, title:'Week 12 – Rooting & Commitment', purpose:'Share work, feedback, and commitment forward.',
-          bullets:['Pitch circle + feedback','Leadership Commitment (3–6 mo)','Pass-the-Torch ceremony'] },
-      ]
-    }
-  ];
-
-  // ---------------- Build week cards into each phase container ----------------
-  const totalWeeks = data.reduce((a,p)=>a + p.weeks.length, 0);
-  data.forEach(({phase, weeks})=>{
-    const wrap = $(`.phase-weeks[data-phase="${phase}"]`, track);
-    const frag = document.createDocumentFragment();
-    weeks.forEach(w=>{
-      const card = document.createElement('article');
-      card.className = 'week-card';
-      card.dataset.week = String(w.n);
-      card.dataset.phase = phase;
-      card.innerHTML = `
-        <div class="wkhead">
-          <span class="wkphase">${phase}</span>
-          <div class="wktitle">${w.title}</div>
-        </div>
-        <p><strong>Purpose:</strong> ${w.purpose}</p>
-        ${w.bullets?.length ? `<ul>${w.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>` : ''}
-      `;
-      frag.appendChild(card);
-    });
-    wrap?.appendChild(frag);
-  });
-
-  // ---------------- Build left week tracker ----------------
-  const fxWeekList = $('#fxWeekList');
-  const fxPhaseName = $('#fxPhaseName');
-  const fxRail = $('#fxRail');
-
-  const weekIndexToPhase = [];
-  data.forEach(p=>{
-    p.weeks.forEach(w=>{
-      weekIndexToPhase[w.n] = p.phase;
-    });
-  });
-
-  const tFrag = document.createDocumentFragment();
-  for (let w=1; w<=totalWeeks; w++){
-    const li = document.createElement('li');
-    li.setAttribute('role','option');
-    li.dataset.week = String(w);
-    li.innerHTML = `<span class="wknum">${w}</span><span class="wktitle">${shortTitle(w)}</span>`;
-    li.addEventListener('click', ()=>{
-      const target = $(`.week-card[data-week="${w}"]`, track);
-      target?.scrollIntoView({ behavior: prefersReduced()? 'auto':'smooth', block:'start' });
-    });
-    tFrag.appendChild(li);
-  }
-  fxWeekList.appendChild(tFrag);
-
-  function shortTitle(w){
-    const found = data.flatMap(p=>p.weeks).find(x=>x.n===w);
-    return found ? found.title.replace(/^Week\s*\d+\s*[–-]\s*/,'') : `Week ${w}`;
-  }
-
-  // ---------------- Observe banners & cards ----------------
-  const cards = $$('.week-card', track);
-  const banners = $$('.phase-banner', track);
-
-  // phase banner visibility (fade up on enter)
-  const bannerIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if (e.isIntersecting){
-        e.target.classList.add('is-visible');
-        announcePhaseSwap(e.target.dataset.phase);
-      }
-    });
-  }, { root:null, threshold:0.5 });
-  banners.forEach(b=>bannerIO.observe(b));
-
-  // current card highlight + left tracker update
-  let currentWeek = 1;
-  const cardIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if (e.isIntersecting){
-        const idx = Number(e.target.dataset.week);
-        setCurrentWeek(idx);
-      }
-    });
-  },{
-    root:null,
-    rootMargin:'0px 0px -60% 0px',
-    threshold:0.15
-  });
-  cards.forEach(c=>cardIO.observe(c));
-
-  function setCurrentWeek(w){
-    if (w === currentWeek) return;
-    // right: highlight card
-    cards.forEach(c=>c.classList.toggle('is-current', Number(c.dataset.week)===w));
-
-    // left: highlight tracker
-    $$('#fxWeekList li').forEach(li=>{
-      li.classList.toggle('is-active', Number(li.dataset.week)===w);
-    });
-
-    // phase label + progress
-    const phase = weekIndexToPhase[w];
-    fxPhaseName.textContent = phase;
-    const boundary = getPhaseBoundary(phase);
-    const pct = Math.round(((w - boundary.start) / (boundary.end - boundary.start)) * 100);
-    fxRail.style.width = `${Math.max(0, Math.min(100, pct))}%`;
-
-    currentWeek = w;
-  }
-
-  function getPhaseBoundary(phase){
-    let start = 1, end = totalWeeks, seen = 0;
-    for (const p of data){
-      const len = p.weeks.length;
-      const s = seen + 1, e = seen + len;
-      if (p.phase === phase){ start = s; end = e; break; }
-      seen += len;
-    }
-    return { start, end };
-  }
-
-  // phase swap overlay (quick celebratory pill)
-  const overlay = document.createElement('div');
-  overlay.className = 'phase-swap';
-  overlay.innerHTML = `<div class="swap-pill">Phase</div>`;
-  document.body.appendChild(overlay);
-  let swapTimeout;
-  function announcePhaseSwap(phase){
-    // Called when phase banner becomes visible
-    overlay.querySelector('.swap-pill').textContent = `Phase: ${phase}`;
-    if (prefersReduced()) return;
-    overlay.classList.add('show');
-    clearTimeout(swapTimeout);
-    swapTimeout = setTimeout(()=>overlay.classList.remove('show'), 1000);
-  }
-
-  function prefersReduced(){
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  // initialize first states
-  setCurrentWeek(1);
-})();
-
-
-
-
-
-
-
-
-
   (function(){
     const onReady = (fn)=> (document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn());
     onReady(function(){
@@ -405,3 +207,133 @@
     });
   })();
 
+  (function(){
+    const onReady = (fn)=> (document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', fn)
+      : fn());
+  
+    onReady(function(){
+      const $  = (s, r=document)=>r.querySelector(s);
+      const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+  
+      /* ========= 1) Mobile-safe viewport height var ========= */
+      // Keeps sticky stage consistent when the mobile URL bar shows/hides
+      function setVH(){
+        document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+      }
+      setVH();
+      window.addEventListener('resize', setVH, {passive:true});
+  
+      /* ========= 2) Rings: fewer on mobile + fallback inputs ========= */
+      const ringsRoot = $('.rings');
+      if (ringsRoot) {
+        const isNarrow = matchMedia('(max-width: 520px)').matches;
+        const RING_COUNT = isNarrow ? 4 : 8;
+  
+        // Build rings with smaller blur footprint on small screens
+        for (let i=0;i<RING_COUNT;i++){
+          const d = document.createElement('div');
+          d.className = 'ring';
+          const size = (isNarrow ? 140 : 200) + Math.random() * (isNarrow ? 520 : 900);
+          d.style.width = d.style.height = size + 'px';
+          d.style.left = (Math.random()*100) + '%';
+          d.style.top  = (Math.random()*100) + '%';
+          d.dataset.depth = (Math.random()*0.8 + 0.2).toFixed(2);
+          d.style.willChange = 'transform';
+          ringsRoot.appendChild(d);
+        }
+  
+        const rings = $$('.ring');
+        const moveRings = (dx, dy)=>{
+          // dx, dy are -1..1
+          for (const el of rings){
+            const k = parseFloat(el.dataset.depth||'0.5');
+            el.style.transform = `translate3d(${dx * -10 * k}px, ${dy * -10 * k}px, 0)`;
+          }
+        };
+  
+        const hasHover = matchMedia('(hover: hover)').matches;
+  
+        // Desktop: mouse move
+        if (hasHover) {
+          window.addEventListener('mousemove', (e)=>{
+            const cx = window.innerWidth/2, cy = window.innerHeight/2;
+            const dx = (e.clientX - cx)/cx;   // -1..1
+            const dy = (e.clientY - cy)/cy;   // -1..1
+            moveRings(dx, dy);
+          }, {passive:true});
+        } else {
+          // Mobile: try tilt first (requires permission on iOS)
+          let usingTilt = false, raf = null, target = {x:0, y:0}, current = {x:0, y:0};
+  
+          function tick(){
+            // ease to target for smoothness
+            current.x += (target.x - current.x) * 0.12;
+            current.y += (target.y - current.y) * 0.12;
+            moveRings(current.x, current.y);
+            raf = requestAnimationFrame(tick);
+          }
+  
+          function startRAF(){ if (!raf) raf = requestAnimationFrame(tick); }
+          function stopRAF(){ if (raf) cancelAnimationFrame(raf), raf=null; }
+  
+          async function tryTilt(){
+            try {
+              // iOS 13+ needs user gesture; if not granted, it throws
+              if (typeof DeviceOrientationEvent !== 'undefined' &&
+                  typeof DeviceOrientationEvent.requestPermission === 'function') {
+                const res = await DeviceOrientationEvent.requestPermission();
+                if (res !== 'granted') throw new Error('permission denied');
+              }
+              usingTilt = true;
+              window.addEventListener('deviceorientation', (e)=>{
+                // gamma: left/right (~-45..45), beta: front/back (~-45..45)
+                const dx = Math.max(-1, Math.min(1, (e.gamma || 0) / 30));
+                const dy = Math.max(-1, Math.min(1, (e.beta  || 0) / 30));
+                target.x = dx; target.y = dy;
+              }, {passive:true});
+              startRAF();
+            } catch {
+              usingTilt = false;
+            }
+          }
+  
+          // Kick off tilt; if not available or permission denied, we’ll fall back to scroll
+          tryTilt().finally(()=>{
+            if (!usingTilt) {
+              // Fallback: gentle scroll parallax
+              const maxShift = 0.6; // keep subtle
+              const onScroll = ()=>{
+                const y = window.scrollY || 0;
+                const dy = Math.sin(y / 800) * maxShift; // -max..max
+                const dx = Math.cos(y / 1000) * maxShift;
+                moveRings(dx, dy);
+              };
+              onScroll();
+              window.addEventListener('scroll', onScroll, {passive:true});
+            }
+          });
+  
+          // Stop RAF when page hidden to save battery
+          document.addEventListener('visibilitychange', ()=>{
+            if (document.hidden) stopRAF(); else if (usingTilt) startRAF();
+          });
+        }
+      }
+  
+      /* ========= 3) Disable heavy hover-tilt on touch ========= */
+      // Your original code adds pointermove on all cards; gate it to hover-capable only
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        $$('.card').forEach(card=>{
+          card.addEventListener('pointermove', (e)=>{
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left)/r.width - .5;
+            const y = (e.clientY - r.top)/r.height - .5;
+            card.style.transform = `rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
+          });
+          card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
+        });
+      }
+    });
+  })();
+  

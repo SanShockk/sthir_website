@@ -115,154 +115,325 @@
   </header>
 
 
-  <!-- Hero / Welcome Section -->
-  <section id="hero-wrapper" style="--scroll: 160vh; position: relative; height: calc(100vh + var(--scroll)); background:#0b0f1a;">
-    <style>
-      /* Keep the animation scene pinned for one viewport. The wrapper gives us extra scroll space. */
-      #hero-wrapper .sticky {
-        position: sticky; top: 0; height: 100vh; overflow: hidden;
-        display: grid; place-items: center; color:#eaf0ff;
-        text-align: center; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      }
+<!-- Hero -->
+<!-- Hero -->
+<section id="hero-wrapper" style="--scroll: 200vh; position: relative; height: calc(100vh + var(--scroll)); background:#0b1220; overflow: clip;">
+  <style>
+    :root{
+      --ink:#eaf2ff; --muted:#a9b6d8;
+      --brand2:#3b82f6; --brand3:#6366f1;
+      --sky1:#0f1633; --sky2:#0c132b; --sky3:#080f22;
+      --eyebrow:#a9b6d8;
+    }
 
-      /* content */
-      #hero .badge{display:inline-block; background:#111827; color:#cbd5e1; padding:8px 14px; border-radius:999px; font-size:14px; border:1px solid rgba(148,163,184,.2)}
-      #hero h1{font-size:clamp(36px,5vw,56px); line-height:1.05; margin:18px 0 6px; font-family:'Playfair Display', Georgia, serif;}
-      #hero p{max-width:720px; margin:0 auto 22px; color:#c7d2fe; line-height:1.7}
-      #hero .cta a{display:inline-block; margin:6px 10px; padding:12px 22px; border-radius:10px; text-decoration:none; font-weight:600}
-      #hero .cta .primary{background:#4a6cf7; color:#fff; box-shadow:0 10px 24px rgba(74,108,247,.35)}
-      #hero .cta .secondary{background:#0b0f1a; color:#aebcff; border:2px solid #3b82f6}
+    /* Sticky viewport */
+    #hero-wrapper .sticky{
+      position: sticky; top: 0; height: 100vh; overflow: clip; color:var(--ink);
+      isolation:isolate;
+      background: radial-gradient(1200px 900px at 50% 30%, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%);
+    }
 
-      /* ring stage */
-      #hero .ring-wrap{ position:relative; width:min(70vmin,720px); height:min(70vmin,720px); margin:14px auto 6px;}
-      #hero svg{ display:block; width:100%; height:100%; }
-      #hero .center{ position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; color:#fff;
-        font-weight:700; font-size:clamp(18px,2.6vw,28px); text-shadow:0 2px 24px rgba(0,0,0,.45) }
+    /* Gentle vignette deepens slightly with scroll */
+    #hero-wrapper .night-tint{
+      position:absolute; inset:-10% -10% -10% -10%; z-index:0; pointer-events:none;
+      background: radial-gradient(120% 110% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.36) 82%, rgba(0,0,0,.58) 100%);
+      opacity:.12; transition: opacity .2s linear;
+    }
 
-      /* rings */
-      #hero .ring{ stroke-linecap:round; fill:none; opacity:.95 }
-      #hero .ring-bg{ stroke:#1f2937; opacity:.55 }
+    /* Content */
+    #hero{
+      position: relative; height: 100%; z-index:2;
+      display:grid; place-items:center;
+      padding: clamp(28px, 5vh, 48px) 20px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--ink);
+    }
+    #hero .stack{
+      width:min(1100px,100%); margin-inline:auto; text-align:center;
+      display:flex; flex-direction:column; align-items:center;
+    }
 
-      /* reduce motion: keep static */
-      @media (prefers-reduced-motion: reduce){
-        #hero-wrapper{ height: 100vh !important; }
-      }
-    </style>
+    /* Eyebrow (subtle SU.org vibe) */
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size: clamp(12px, 1.4vw, 13.5px); letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+      color: var(--eyebrow);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 8px 12px;
+      box-shadow: 0 6px 18px rgba(99,102,241,.16) inset;
+    }
 
-    <!-- sticky hero scene -->
-    <div class="sticky">
-      <div id="hero">
-        <span class="badge">✨ Now accepting applications for Fall 2025 Cohort</span>
+    /* Constellation stage */
+    .stage{
+      width:min(92vmin, 1100px); height:min(60vmin, 520px);
+      margin: clamp(4px, 1.2vh, 10px) auto clamp(10px, 3vh, 24px);
+      position: relative;
+    }
+    svg.starsvg{ display:block; width:100%; height:100% }
 
-        <div class="ring-wrap">
-          <svg viewBox="0 0 1000 1000" aria-hidden="true">
-            <defs>
-              <!-- brandable gradients (swap colors to match your palette) -->
-              <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"  stop-color="#5b7cfa"/>
-                <stop offset="40%" stop-color="#3b82f6"/>
-                <stop offset="70%" stop-color="#6366f1"/>
-                <stop offset="100%" stop-color="#22d3ee"/>
-              </linearGradient>
-              <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%"  stop-color="#22d3ee"/>
-                <stop offset="50%" stop-color="#6366f1"/>
-                <stop offset="100%" stop-color="#3b82f6"/>
-              </linearGradient>
-              <linearGradient id="g3" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%"  stop-color="#6366f1"/>
-                <stop offset="50%" stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#22d3ee"/>
-              </linearGradient>
+    /* Background starfield */
+    .farField, .nearField{ mix-blend-mode: screen }
+    .farField{ opacity:.55 } .nearField{ opacity:.9 }
 
-              <!-- soft glow -->
-              <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
+    /* Word constellation (elegant + minimal) */
+    .wordStar{ fill:#eaf2ff; opacity:0 }
+    .wordStar.core{ fill:#ffffff }
+    .wordLinks{ stroke:#cfe0ff; stroke-width:1.2; stroke-linecap:round; opacity:0 }
+    .word{ mix-blend-mode: screen }
 
-            <!-- tracks -->
-            <g opacity=".45">
-              <circle class="ring-bg" cx="500" cy="500" r="360" stroke-width="10"/>
-              <circle class="ring-bg" cx="500" cy="500" r="320" stroke-width="10"/>
-              <circle class="ring-bg" cx="500" cy="500" r="280" stroke-width="10"/>
-            </g>
+    /* Text */
+    h1{
+      font-family:"Playfair Display", Georgia, serif;
+      font-size: clamp(30px, 6vw, 62px); line-height:1.04; margin: 14px 0 12px;
+      color:#eaf2ff; text-shadow: 0 2px 18px rgba(70,110,255,.22);
+    }
+    p{
+      max-width: 880px; margin: 0 auto 10px; color: var(--muted);
+      line-height: 1.65; font-size: clamp(15.5px,1.6vw,18px);
+    }
 
-            <!-- animated rings -->
-            <g id="rings" filter="url(#soft)">
-              <circle id="r1" class="ring" cx="500" cy="500" r="360" stroke="url(#g1)" stroke-width="10" />
-              <circle id="r2" class="ring" cx="500" cy="500" r="320" stroke="url(#g2)" stroke-width="10" />
-              <circle id="r3" class="ring" cx="500" cy="500" r="280" stroke="url(#g3)" stroke-width="10" />
+    .cta{ margin-top: clamp(10px, 1.6vh, 16px) }
+    .cta a{
+      display:inline-block; margin:6px 10px; padding:12px 22px; border-radius:12px; text-decoration:none; font-weight:700;
+      transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+    }
+    .cta .primary{ background: linear-gradient(90deg, var(--brand2), var(--brand3)); color:#fff; box-shadow:0 10px 24px rgba(59,130,246,.25) }
+    .cta .primary:hover{ transform:translateY(-1px); box-shadow:0 16px 36px rgba(59,130,246,.35) }
+    .cta .secondary{ background:transparent; color:#cfe0ff; border:2px solid rgba(99,102,241,.6); box-shadow:0 6px 16px rgba(99,102,241,.18) inset }
+    .cta .secondary:hover{ transform:translateY(-1px) }
+
+    /* Phones */
+    @media (max-width: 960px){ .stage{ width:min(96vmin, 980px); height:min(64vmin, 480px) } }
+    @media (max-width: 600px){
+      #hero{ padding: 4.5vh 16px }
+      .stage{ width:min(98vmin, 620px); height:min(66vmin, 420px) }
+      h1{ font-size: clamp(24px, 7.6vw, 42px) } p{ font-size: 15.5px }
+    }
+
+    /* Divider after hero */
+    #hero::after{ content:""; display:block; height: clamp(16px, 4vh, 32px) }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      #hero-wrapper{ height: 100vh !important; }
+      .nearField, .farField, .wordLinks, .wordStar{ animation: none !important }
+    }
+  </style>
+
+  <div class="sticky">
+    <div class="night-tint" id="nightTint" aria-hidden="true"></div>
+
+    <div id="hero" role="banner" aria-label="Sthir hero">
+      <div class="stack">
+        <!-- Eyebrow -->
+        <div class="eyebrow" aria-hidden="true">Welcome to Sthir</div>
+
+        <!-- STHIR CONSTELLATION -->
+        <div class="stage" id="sthirStage" aria-hidden="true">
+          <svg class="starsvg" viewBox="0 0 1200 520" role="img" aria-label="STHIR constellation">
+            <g class="farField" id="farField"  fill="#9fb7ff"></g>
+            <g class="nearField" id="nearField" fill="#e4ecff"></g>
+            <g id="word" class="word">
+              <g id="wordLinks"></g>
+              <g id="wordStars"></g>
             </g>
           </svg>
-          <div class="center">Welcome to Sthir</div>
         </div>
 
-        <p>Be a part of mindful leadership sandbox where young people connect to themselves, test ideas in the real world, and grow through doing — not just thinking.</p>
-        <div class="cta">
-          <a class="primary" target="_blank" rel="noopener"
-            href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing">Apply Now</a>
-          <a class="secondary" href="#services">Our Offerings</a>
+        <h1>Founders’ and Leaders’ Unfair Advantage.</h1>
+
+        <p>In a world that’s wired, noisy, and attention-hungry, your true edge is Presence powered by a Sthir Mindset and Creative Capital.</p>
+        <p>Join a mindful leadership sandbox where young adults connect with themselves, test bold ideas, and grow through doing.</p>
+
+        <div class="cta" role="navigation" aria-label="Primary">
+          <a class="primary" href="#story">Our Story</a>
+          <a class="secondary" href="#offerings">Our Offerings</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- progress-driven drawing -->
-    <script>
-      (function(){
-        const wrapper = document.getElementById('hero-wrapper');
-        const ringsG  = document.getElementById('rings');
-        const rings   = [document.getElementById('r1'), document.getElementById('r2'), document.getElementById('r3')];
+  <script>
+  (()=>{
+    /* Scoped IIFE: avoids global collisions and ensures smooth, direction-agnostic motion. */
 
-        // Precompute dash arrays; show 20% by default (static fallback)
-        rings.forEach((c, i) => {
-          const r = +c.getAttribute('r');
-          const L = 2 * Math.PI * r;
-          c.dataset.len = L;
-          c.style.strokeDasharray = L;
-          c.style.strokeDashoffset = L * 0.80; // 20% visible initially
+    // DOM
+    const wrapper     = document.getElementById('hero-wrapper');
+    const nightTint   = document.getElementById('nightTint');
+    const stageEl     = document.getElementById('sthirStage');
+    const svg         = stageEl.querySelector('svg.starsvg');
+    const farG        = document.getElementById('farField');
+    const nearG       = document.getElementById('nearField');
+    const wordStarsG  = document.getElementById('wordStars');
+    const wordLinksG  = document.getElementById('wordLinks');
+
+    // ViewBox
+    const VBW = 1200, VBH = 520;
+
+    // Helpers
+    const clamp01 = x => Math.max(0, Math.min(1, x));
+
+    // Subtle starfield
+    function makeStars(g, n, near=false){
+      const stars=[];
+      for(let i=0;i<n;i++){
+        const x = Math.random()*VBW, y = Math.random()*VBH;
+        const r = near? (Math.random()*1.6+0.6) : (Math.random()*1.1+0.25);
+        const sp= (Math.random()*0.45+0.15) * (Math.random()<.5 ? 1 : -1);
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', x.toFixed(1));
+        c.setAttribute('cy', y.toFixed(1));
+        c.setAttribute('r',  r.toFixed(2));
+        g.appendChild(c);
+        stars.push({el:c, x, y, r, sp});
+      }
+      return stars;
+    }
+    const farStars  = makeStars(farG, 90, false);
+    const nearStars = makeStars(nearG, 70, true);
+
+    // Build STHIR targets by sampling a canvas render (centered)
+    function buildWordTargets(text, {sampleStep=10, font='900 190px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'}={}){
+      const box = {x:150, y:110, w:900, h:300}; // centered in 1200x520
+      const c = document.createElement('canvas'); c.width=box.w; c.height=box.h;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.font=font;
+      ctx.clearRect(0,0,box.w,box.h);
+      ctx.fillText(text, box.w/2, box.h/2);
+      const img = ctx.getImageData(0,0,box.w,box.h).data;
+
+      const pts=[];
+      for (let y=0; y<box.h; y+=sampleStep){
+        for (let x=0; x<box.w; x+=sampleStep){
+          if (img[(y*box.w + x)*4 + 3] > 150){ pts.push([box.x + x, box.y + y]); }
+        }
+      }
+      return pts;
+    }
+    const targets = buildWordTargets('STHIR', { sampleStep: 10 });
+
+    // Start scattered positions
+    const startPos = targets.map(()=> [ Math.random()*VBW, Math.random()*VBH ]);
+
+    // Stars (constant size). Store radius once in data-r0.
+    const nodeEls = targets.map(()=>{
+      const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      const r0  = (Math.random()*1.0 + 1.6); // elegant small points
+      dot.setAttribute('class', Math.random()<0.08 ? 'wordStar core' : 'wordStar');
+      dot.setAttribute('r', r0.toFixed(2));
+      dot.dataset.r0 = r0.toFixed(2);
+      wordStarsG.appendChild(dot);
+      return dot;
+    });
+
+    // Minimal neighbor links (K=2) for a tidy “constellation” feel
+    const linkPairs = [];
+    (function(){
+      const K=2;
+      for(let i=0;i<targets.length;i++){
+        const dists = targets.map((p,j)=> j===i? [Infinity,j] : [ (p[0]-targets[i][0])**2 + (p[1]-targets[i][1])**2 , j]);
+        dists.sort((a,b)=>a[0]-b[0]);
+        for(let k=0;k<K;k++){ const j=dists[k][1]; if(j>i) linkPairs.push([i,j]); }
+      }
+    })();
+    const linkEls = linkPairs.map(()=>{
+      const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+      l.setAttribute('class','wordLinks'); l.setAttribute('stroke-dasharray','200'); l.setAttribute('stroke-dashoffset','200');
+      wordLinksG.appendChild(l); return l;
+    });
+
+    // State (time-based smoothing = same feel up/down)
+    const state = {
+      reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+      p:0,   // raw scroll progress (target)
+      s:0,   // smoothed progress
+      last:0
+    };
+    const TAU = 0.18; // seconds to ~63% toward target (lower = snappier)
+
+    function render(){
+      const q = state.reduced ? 1 : state.s;  // smoothed morph progress
+
+      // vignette deepens subtly
+      nightTint.style.opacity = (0.12 + q*0.42).toFixed(3);
+
+      // star nodes
+      for(let i=0;i<nodeEls.length;i++){
+        const [sx,sy] = startPos[i], [tx,ty] = targets[i];
+        const x = sx + (tx - sx)*q, y = sy + (ty - sy)*q;
+        const el = nodeEls[i];
+        el.setAttribute('cx', x.toFixed(1));
+        el.setAttribute('cy', y.toFixed(1));
+        el.setAttribute('r', el.dataset.r0);
+        el.style.opacity = (0.18 + 0.82*q).toFixed(2);
+      }
+
+      // links draw in
+      for(let i=0;i<linkEls.length;i++){
+        const [a,b] = linkPairs[i];
+        const ax = +nodeEls[a].getAttribute('cx'), ay = +nodeEls[a].getAttribute('cy');
+        const bx = +nodeEls[b].getAttribute('cx'), by = +nodeEls[b].getAttribute('cy');
+        const l = linkEls[i];
+        l.setAttribute('x1', ax); l.setAttribute('y1', ay);
+        l.setAttribute('x2', bx); l.setAttribute('y2', by);
+        const d = Math.hypot(ax-bx, ay-by);
+        l.setAttribute('stroke-dasharray', d.toFixed(1));
+        l.setAttribute('stroke-dashoffset', (d*(1-q)).toFixed(1));
+        l.style.opacity = (0.10 + 0.90*q).toFixed(2);
+      }
+    }
+
+    function loop(ts){
+      const t = (ts||0)/1000, dt = Math.max(0, t - state.last); state.last = t;
+
+      // starfield: tiny twinkle
+      if(!state.reduced){
+        const tw = (arr, f1, f2, a1, a2) => arr.forEach(s=>{
+          const dx = Math.sin(t*f1 + s.x*0.002)*s.sp*a1;
+          s.el.setAttribute('cx', (s.x + dx).toFixed(1));
+          s.el.setAttribute('opacity', (0.45 + 0.22*Math.abs(Math.sin(t*f2 + s.x*0.01))).toFixed(2));
         });
+        tw(farStars, 0.20, 1.4, 0.30, 0.22);
+        tw(nearStars,0.35, 2.0, 0.60, 0.28);
+      }
 
-        let p = 0;
-        function frame(){
-          const rect = wrapper.getBoundingClientRect();
-          const vh = window.innerHeight || document.documentElement.clientHeight;
+      // scroll progress (0..1)
+      const rect = wrapper.getBoundingClientRect();
+      const vh   = innerHeight || document.documentElement.clientHeight;
+      const total= Math.max(1, rect.height - vh);
+      state.p = clamp01((0 - rect.top) / total);
 
-          // When top of wrapper hits top of viewport (rect.top <= 0) progress begins.
-          // It ends when bottom of wrapper hits bottom of viewport: rect.top == -(rect.height - vh)
-          const total = Math.max(1, rect.height - vh);
-          let np = (0 - rect.top) / total; // 0..1
-          if (np < 0) np = 0;
-          if (np > 1) np = 1;
+      // critically-damped smoothing (constant feel up or down)
+      const TAU = 0.18;
+      const k = 1 - Math.exp(-dt / TAU);
+      state.s = state.s + (state.p - state.s) * k;
 
-          if (Math.abs(np - p) > 0.002){
-            p = np;
-            draw(p);
-          }
-          requestAnimationFrame(frame);
-        }
+      render();
+      requestAnimationFrame(loop);
+    }
 
-        function draw(p){
-          // staggered completion (outer first, inner last)
-          rings.forEach((c, i) => {
-            const L = +c.dataset.len;
-            const ease = Math.min(1, Math.max(0, (p * (1 + i*0.15)))); // inner lags
-            const offset = L * (1 - ease);
-            c.style.strokeDashoffset = offset;
-          });
-          // subtle rotation as progress increases
-          const rot = p * 60; // degrees
-          ringsG.setAttribute('transform', `rotate(${rot} 500 500)`);
-        }
+    requestAnimationFrame(loop);
+  })();
+  </script>
 
-        // Kick off
-        requestAnimationFrame(frame);
-        // Keep consistent on resize
-        window.addEventListener('resize', ()=>draw(p), {passive:true});
-      })();
-    </script>
-  </section>
+  <noscript>
+    <style>#hero-wrapper{ height: 100vh !important }</style>
+  </noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Our Offerings Section -->
   <section id="services" style="padding:80px 20px; max-width:1100px; margin:0 auto;">

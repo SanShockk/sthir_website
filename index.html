@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Sthir – Sit Sthir, Stand Tall</title>
+  <meta name="description" content="Sthir helps young adults build a grounded mindset, test bold ideas, and grow as conscious leaders through a 12‑week journey." />
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
 
   <!-- AOS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
@@ -12,40 +20,39 @@
   <link rel="stylesheet" href="styles.css"/>
   <link rel="stylesheet" href="testimonial.css"/>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
-
-  <!-- Page-specific quick styles (Interest banner) -->
+  <!-- Page-specific quick styles / utilities -->
   <style>
-    .interest-banner {
-      position: fixed; right: 1rem; bottom: 1rem; z-index: 1000;
-      max-width: 320px; padding: 1rem;
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(8px);
-      border: 1px solid rgba(0,0,0,0.06); border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-      display: none;
-    }
+    /* Screen-reader only util */
+    .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* Anchor targets not hidden under sticky headers */
+    :target{ scroll-margin-top: 14vh; }
+    @supports(height: 100dvh){ :target{ scroll-margin-top: 14dvh; } }
+
+    /* Interest banner */
+    .interest-banner { position: fixed; right: 1rem; bottom: 1rem; z-index: 1000; max-width: 320px; padding: 1rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); border: 1px solid rgba(0,0,0,0.06); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); display: none; }
     .interest-banner.show { display: block; animation: slideUp 260ms ease-out; }
-    .interest-close {
-      position:absolute; top:.35rem; right:.5rem; border:none; background:transparent;
-      font-size:1.2rem; cursor:pointer; line-height:1; opacity:.6;
-    }
+    .interest-close { position:absolute; top:.35rem; right:.5rem; border:none; background:transparent; font-size:1.2rem; cursor:pointer; line-height:1; opacity:.6; }
     .interest-close:hover { opacity: 1; }
     .interest-content p { margin:.25rem 0 .75rem; font-size:.95rem; }
-    @media (max-width: 600px) {
-      .interest-banner { left: .75rem; right: .75rem; bottom: .75rem; }
-    }
+    @media (max-width: 600px){ .interest-banner { left: .75rem; right: .75rem; bottom: .75rem; } }
     @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+    /* Skip link */
+    .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:fixed; left:1rem; top:1rem; width:auto; height:auto; background:#111827; color:#fff; padding:.5rem .75rem; border-radius:.5rem; z-index:10000; }
   </style>
 </head>
 <body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Navbar -->
   <header class="navbar" id="navbar">
     <nav class="container nav-inner" aria-label="Main navigation">
       <!-- Brand (left) -->
       <a href="/" class="brand" aria-label="Sthir Home">
-        <img src="./images/logo.jpeg" alt="" class="brand-logo" />
+        <img src="./images/logo.jpeg" alt="Sthir logo" class="brand-logo" width="40" height="40" loading="eager" decoding="async"/>
         <div class="brand-text">
           <span class="brand-title font-playfair">Sthir</span>
           <span class="brand-tagline">Sit Sthir, Stand Tall</span>
@@ -67,17 +74,9 @@
         <li style="margin-left:1.2rem; display:flex; align-items:center; height:100%;">
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing"
-            target="_blank" rel="noopener"
-            style="
-              display:inline-flex; align-items:center; justify-content:center;
-              padding:0.25rem 1.1rem; border-radius:999px; font-weight:500; font-size:1.07rem;
-              cursor:pointer; border:none;
-              background:linear-gradient(93deg, #2563eb 65%, #93c5fd 100%);
-              color:#fff; box-shadow:0 2px 8px 0 rgba(37,99,235,0.18); text-decoration:none; line-height:1.35;
-              transition:background 0.18s, box-shadow 0.18s, transform 0.14s; outline:none;
-            "
-            onmouseover="this.style.background='linear-gradient(93deg, #1e3a8a 90%, #bfdbfe 100%)'; this.style.transform='translateY(-2px) scale(1.03)'; this.style.boxShadow='0 6px 18px rgba(37,99,235,0.28)';"
-            onmouseout="this.style.background='linear-gradient(93deg, #2563eb 65%, #93c5fd 100%)'; this.style.transform='none'; this.style.boxShadow='0 2px 8px 0 rgba(37,99,235,0.18)';"
+            target="_blank" rel="noopener noreferrer"
+            class="apply-now-btn"
+            aria-label="Apply to Sthir (opens form in a new tab)"
           >
             Apply Now
           </a>
@@ -104,178 +103,127 @@
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScMgIgvs0fhy520HeA-aDZCrtfYprspWlODNZ8Khom50pzGuA/viewform?usp=sharing"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="apply-now-btn"
           >
             Apply Now
           </a>
-        </li>     
+        </li>
       </ul>
     </nav>
   </header>
 
+  <main id="main">
 
-<!-- Hero -->
-<!-- Hero -->
-<section id="hero-wrapper" style="--scroll: 200vh; position: relative; height: calc(100vh + var(--scroll)); background:#0b1220; overflow: clip;">
+  <!-- Hero (hardened) -->
+  <section id="hero-wrapper"
+    style="--scroll: 200vh; --linger: 150vh; position: relative;
+           min-height: calc(100svh + var(--scroll) + var(--linger));
+           background:#0b1220; overflow: visible; color-scheme: dark;">
+
   <style>
     :root{
       --ink:#eaf2ff; --muted:#a9b6d8;
-      --brand2:#3b82f6; --brand3:#6366f1;
+      --brand2:#3b82f6; --brand3:#6366f1; --brand4:#22d3ee;
       --sky1:#0f1633; --sky2:#0c132b; --sky3:#080f22;
-      --eyebrow:#a9b6d8;
+      --eyebrow:#a9b6d8; --ring: rgba(99,102,241,.55);
     }
+    @supports (height: 100dvh){ #hero-wrapper{ min-height: calc(100dvh + var(--scroll) + var(--linger)) } }
 
-    /* Sticky viewport */
-    #hero-wrapper .sticky{
-      position: sticky; top: 0; height: 100vh; overflow: clip; color:var(--ink);
-      isolation:isolate;
-      background: radial-gradient(1200px 900px at 50% 30%, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%);
-    }
+    #hero-wrapper .sticky{ position: sticky; top: 0; height: auto; min-height: 100svh; overflow: visible; color: var(--ink); isolation: isolate; background: radial-gradient(1200px 900px at 50% 30%, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    @supports (height: 100dvh){ #hero-wrapper .sticky{ min-height: 100dvh } }
 
-    /* Gentle vignette deepens slightly with scroll */
-    #hero-wrapper .night-tint{
-      position:absolute; inset:-10% -10% -10% -10%; z-index:0; pointer-events:none;
-      background: radial-gradient(120% 110% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.36) 82%, rgba(0,0,0,.58) 100%);
-      opacity:.12; transition: opacity .2s linear;
-    }
+    #hero-wrapper .night-tint{ position:absolute; inset:-10% -10% -10% -10%; z-index:0; pointer-events:none; background: radial-gradient(120% 110% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.36) 82%, rgba(0,0,0,.58) 100%); opacity:.12; transition: opacity .2s linear; }
 
-    /* Content */
-    #hero{
-      position: relative; height: 100%; z-index:2;
-      display:grid; place-items:center;
-      padding: clamp(28px, 5vh, 48px) 20px;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:var(--ink);
-    }
-    #hero .stack{
-      width:min(1100px,100%); margin-inline:auto; text-align:center;
-      display:flex; flex-direction:column; align-items:center;
-    }
+    #hero{ position: relative; height: 100%; z-index:2; display:grid; place-items:center; padding: clamp(28px, 5vh, 56px) clamp(16px, 4vw, 40px); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--ink); }
+    #hero .stack{ width:min(1400px, 100%); margin-inline:auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap: clamp(8px, 1.6vh, 14px); }
 
-    /* Eyebrow (subtle SU.org vibe) */
-    .eyebrow{
-      display:inline-flex; align-items:center; gap:8px;
-      font-size: clamp(12px, 1.4vw, 13.5px); letter-spacing:.08em; text-transform:uppercase; font-weight:700;
-      color: var(--eyebrow);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      padding: 8px 12px;
-      box-shadow: 0 6px 18px rgba(99,102,241,.16) inset;
-    }
+    #hero.fit .stack{ transform: translateY(var(--fit-offset, 0px)) scale(var(--fit-scale, 1)); transform-origin: top center; will-change: transform; }
+    #hero.fit .cta{ margin-top: clamp(6px, 1vh, 12px) }
 
-    /* Constellation stage */
-    .stage{
-      width:min(92vmin, 1100px); height:min(60vmin, 520px);
-      margin: clamp(4px, 1.2vh, 10px) auto clamp(10px, 3vh, 24px);
-      position: relative;
-    }
+    .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size: clamp(12px, 1.4vw, 13.5px); letter-spacing:.08em; text-transform:uppercase; font-weight:700; color: var(--eyebrow); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 8px 12px; box-shadow: 0 6px 18px rgba(99,102,241,.16) inset, 0 10px 24px rgba(0,0,0,.25); backdrop-filter: blur(6px); }
+
+    .stage{ width: clamp(720px, 90vw, 1400px); aspect-ratio: 1200 / 520; height: auto; margin: clamp(4px, 1.2vh, 10px) auto clamp(8px, 3vh, 24px); position: relative; filter: drop-shadow(0 30px 80px rgba(59,130,246,.18)); }
     svg.starsvg{ display:block; width:100%; height:100% }
 
-    /* Background starfield */
-    .farField, .nearField{ mix-blend-mode: screen }
-    .farField{ opacity:.55 } .nearField{ opacity:.9 }
+    .farField, .nearField{ mix-blend-mode: screen } .farField{ opacity:.55 } .nearField{ opacity:.9 }
 
-    /* Word constellation (elegant + minimal) */
-    .wordStar{ fill:#eaf2ff; opacity:0 }
-    .wordStar.core{ fill:#ffffff }
+    .wordStar{ fill:#eaf2ff; opacity:0 } .wordStar.core{ fill:#ffffff }
     .wordLinks{ stroke:#cfe0ff; stroke-width:1.2; stroke-linecap:round; opacity:0 }
     .word{ mix-blend-mode: screen }
 
-    /* Text */
-    h1{
-      font-family:"Playfair Display", Georgia, serif;
-      font-size: clamp(30px, 6vw, 62px); line-height:1.04; margin: 14px 0 12px;
-      color:#eaf2ff; text-shadow: 0 2px 18px rgba(70,110,255,.22);
-    }
-    p{
-      max-width: 880px; margin: 0 auto 10px; color: var(--muted);
-      line-height: 1.65; font-size: clamp(15.5px,1.6vw,18px);
-    }
+    h1{ font-family:"Playfair Display", Georgia, serif; font-weight: 800; letter-spacing: .2px; font-size: clamp(30px, 6vw, 66px); line-height:1.05; margin: 14px 0 10px; color:#eaf2ff; text-shadow: 0 2px 18px rgba(70,110,255,.22), 0 0 1px rgba(255,255,255,.4); }
+    p{ max-width: clamp(60ch, 80%, 88ch); margin: 0 auto 8px; color: var(--muted); line-height: 1.65; font-size: clamp(15.5px,1.35vw,18.5px); }
 
-    .cta{ margin-top: clamp(10px, 1.6vh, 16px) }
-    .cta a{
-      display:inline-block; margin:6px 10px; padding:12px 22px; border-radius:12px; text-decoration:none; font-weight:700;
-      transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
-    }
-    .cta .primary{ background: linear-gradient(90deg, var(--brand2), var(--brand3)); color:#fff; box-shadow:0 10px 24px rgba(59,130,246,.25) }
+    .cta{ margin-top: clamp(8px, 1.6vh, 18px); display:flex; flex-wrap:wrap; justify-content:center; gap:12px }
+    .cta a{ display:inline-block; padding:13px 22px; border-radius:14px; text-decoration:none; font-weight:800; transition: transform .15s ease, box-shadow .25s ease, background-color .2s ease, color .2s ease, outline-color .2s ease; outline: 0 solid transparent; min-height:44px; min-width:44px; }
+    .cta .primary{ background: linear-gradient(90deg, var(--brand2), var(--brand3)); color:#0b1220; box-shadow: 0 10px 22px rgba(59,130,246,.25), 0 0 0 1px rgba(255,255,255,.10) inset; }
     .cta .primary:hover{ transform:translateY(-1px); box-shadow:0 16px 36px rgba(59,130,246,.35) }
-    .cta .secondary{ background:transparent; color:#cfe0ff; border:2px solid rgba(99,102,241,.6); box-shadow:0 6px 16px rgba(99,102,241,.18) inset }
+    .cta .secondary{ background:rgba(255,255,255,0.04); color:#eaf2ff; border:1.5px solid rgba(99,102,241,.5); box-shadow:0 6px 16px rgba(99,102,241,.18) inset; }
     .cta .secondary:hover{ transform:translateY(-1px) }
 
-    /* Phones */
-    @media (max-width: 960px){ .stage{ width:min(96vmin, 980px); height:min(64vmin, 480px) } }
-    @media (max-width: 600px){
-      #hero{ padding: 4.5vh 16px }
-      .stage{ width:min(98vmin, 620px); height:min(66vmin, 420px) }
-      h1{ font-size: clamp(24px, 7.6vw, 42px) } p{ font-size: 15.5px }
-    }
+    .cta a:focus-visible{ outline: 3px solid var(--ring); outline-offset: 2px; }
 
-    /* Divider after hero */
+    @media (max-width: 960px){ .stage{ width: min(96vmin, 1200px) } }
+    @media (max-width: 600px){ #hero{ padding: 4.5vh 16px 7vh } .stage{ width: min(98vmin, 680px) } h1{ font-size: clamp(26px, 7.4vw, 44px) } p{ font-size: 15.5px } }
+
     #hero::after{ content:""; display:block; height: clamp(16px, 4vh, 32px) }
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      #hero-wrapper{ height: 100vh !important; }
-      .nearField, .farField, .wordLinks, .wordStar{ animation: none !important }
-    }
+    @media (prefers-reduced-motion: reduce){ #hero-wrapper{ min-height: calc(100svh + var(--scroll, 0vh) + var(--linger, 0vh)) !important; } @supports (height: 100dvh){ #hero-wrapper{ min-height: calc(100dvh + var(--scroll, 0vh) + var(--linger, 0vh)) !important; } } .nearField, .farField, .wordLinks, .wordStar{ animation: none !important } }
+
+    @media (prefers-contrast: more){ .cta .secondary{ border-color: rgba(255,255,255,.7); } }
   </style>
 
-  <div class="sticky">
-    <div class="night-tint" id="nightTint" aria-hidden="true"></div>
+    <div class="sticky">
+      <div class="night-tint" id="nightTint" aria-hidden="true"></div>
 
-    <div id="hero" role="banner" aria-label="Sthir hero">
-      <div class="stack">
-        <!-- Eyebrow -->
-        <div class="eyebrow" aria-hidden="true">Welcome to Sthir</div>
+      <div id="hero" role="banner" aria-label="Sthir hero">
+        <div class="stack">
+          <span class="sr-only" id="hero-intro">Welcome to Sthir.</span>
+          <div class="eyebrow" style="--eyebrow-shift: 18px" aria-hidden="true" aria-describedby="hero-intro">Welcome to Sthir</div>
 
-        <!-- STHIR CONSTELLATION -->
-        <div class="stage" id="sthirStage" aria-hidden="true">
-          <svg class="starsvg" viewBox="0 0 1200 520" role="img" aria-label="STHIR constellation">
-            <g class="farField" id="farField"  fill="#9fb7ff"></g>
-            <g class="nearField" id="nearField" fill="#e4ecff"></g>
-            <g id="word" class="word">
-              <g id="wordLinks"></g>
-              <g id="wordStars"></g>
-            </g>
-          </svg>
-        </div>
+          <div class="stage" id="sthirStage" aria-hidden="true">
+            <svg class="starsvg" viewBox="0 0 1200 520" role="img" aria-label="S T H I R constellation">
+              <g class="farField" id="farField"  fill="#9fb7ff"></g>
+              <g class="nearField" id="nearField" fill="#e4ecff"></g>
+              <g id="word" class="word">
+                <g id="wordLinks"></g>
+                <g id="wordStars"></g>
+              </g>
+            </svg>
+          </div>
 
-        <h1>Founders’ and Leaders’ Unfair Advantage.</h1>
+          <h1 id="hero-title">Founders’ and Leaders’ Unfair Advantage</h1>
+          <p>In a world that’s wired, noisy, and attention-hungry, your true edge is Presence powered by a Sthir Mindset and Creative Capital.</p>
+          <p>Join a mindful leadership sandbox where young adults connect with themselves, test bold ideas, and grow through doing.</p>
 
-        <p>In a world that’s wired, noisy, and attention-hungry, your true edge is Presence powered by a Sthir Mindset and Creative Capital.</p>
-        <p>Join a mindful leadership sandbox where young adults connect with themselves, test bold ideas, and grow through doing.</p>
-
-        <div class="cta" role="navigation" aria-label="Primary">
-          <a class="primary" href="#story">Our Story</a>
-          <a class="secondary" href="#offerings">Our Offerings</a>
+          <nav class="cta" aria-label="Hero primary actions">
+            <a class="primary" href="#philosophy">Our Story</a>
+            <a class="secondary" href="#services">Our Offerings</a>
+          </nav>
         </div>
       </div>
     </div>
-  </div>
 
   <script>
   (()=>{
-    /* Scoped IIFE: avoids global collisions and ensures smooth, direction-agnostic motion. */
-
     // DOM
     const wrapper     = document.getElementById('hero-wrapper');
     const nightTint   = document.getElementById('nightTint');
     const stageEl     = document.getElementById('sthirStage');
-    const svg         = stageEl.querySelector('svg.starsvg');
+    const svg         = stageEl?.querySelector('svg.starsvg');
     const farG        = document.getElementById('farField');
     const nearG       = document.getElementById('nearField');
     const wordStarsG  = document.getElementById('wordStars');
     const wordLinksG  = document.getElementById('wordLinks');
+    if(!wrapper || !svg || !farG || !nearG || !wordStarsG || !wordLinksG){ return; }
 
-    // ViewBox
     const VBW = 1200, VBH = 520;
-
-    // Helpers
     const clamp01 = x => Math.max(0, Math.min(1, x));
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = matchMedia('(max-width: 600px)').matches ? 14 : (matchMedia('(max-width: 960px)').matches ? 12 : 10);
+    const MAX_NODES = 480;
 
-    // Subtle starfield
     function makeStars(g, n, near=false){
       const stars=[];
       for(let i=0;i<n;i++){
@@ -294,9 +242,8 @@
     const farStars  = makeStars(farG, 90, false);
     const nearStars = makeStars(nearG, 70, true);
 
-    // Build STHIR targets by sampling a canvas render (centered)
     function buildWordTargets(text, {sampleStep=10, font='900 190px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'}={}){
-      const box = {x:150, y:110, w:900, h:300}; // centered in 1200x520
+      const box = {x:150, y:110, w:900, h:300};
       const c = document.createElement('canvas'); c.width=box.w; c.height=box.h;
       const ctx = c.getContext('2d');
       ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.font=font;
@@ -310,17 +257,18 @@
           if (img[(y*box.w + x)*4 + 3] > 150){ pts.push([box.x + x, box.y + y]); }
         }
       }
+      if (pts.length > MAX_NODES){
+        const stride = Math.ceil(pts.length / MAX_NODES);
+        return pts.filter((_,i)=> i % stride === 0);
+      }
       return pts;
     }
-    const targets = buildWordTargets('STHIR', { sampleStep: 10 });
-
-    // Start scattered positions
+    const targets = buildWordTargets('STHIR', { sampleStep: step });
     const startPos = targets.map(()=> [ Math.random()*VBW, Math.random()*VBH ]);
 
-    // Stars (constant size). Store radius once in data-r0.
     const nodeEls = targets.map(()=>{
       const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      const r0  = (Math.random()*1.0 + 1.6); // elegant small points
+      const r0  = (Math.random()*1.0 + 1.6);
       dot.setAttribute('class', Math.random()<0.08 ? 'wordStar core' : 'wordStar');
       dot.setAttribute('r', r0.toFixed(2));
       dot.dataset.r0 = r0.toFixed(2);
@@ -328,7 +276,6 @@
       return dot;
     });
 
-    // Minimal neighbor links (K=2) for a tidy “constellation” feel
     const linkPairs = [];
     (function(){
       const K=2;
@@ -344,22 +291,12 @@
       wordLinksG.appendChild(l); return l;
     });
 
-    // State (time-based smoothing = same feel up/down)
-    const state = {
-      reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
-      p:0,   // raw scroll progress (target)
-      s:0,   // smoothed progress
-      last:0
-    };
-    const TAU = 0.18; // seconds to ~63% toward target (lower = snappier)
+    const state = { reduced: prefersReduced, pTarget:0, s:0, last:0, latched:false };
+    let rafId = null; let isActive = true;
 
     function render(){
-      const q = state.reduced ? 1 : state.s;  // smoothed morph progress
-
-      // vignette deepens subtly
+      const q = state.reduced ? 1 : state.s;
       nightTint.style.opacity = (0.12 + q*0.42).toFixed(3);
-
-      // star nodes
       for(let i=0;i<nodeEls.length;i++){
         const [sx,sy] = startPos[i], [tx,ty] = targets[i];
         const x = sx + (tx - sx)*q, y = sy + (ty - sy)*q;
@@ -369,400 +306,376 @@
         el.setAttribute('r', el.dataset.r0);
         el.style.opacity = (0.18 + 0.82*q).toFixed(2);
       }
-
-      // links draw in
       for(let i=0;i<linkEls.length;i++){
         const [a,b] = linkPairs[i];
         const ax = +nodeEls[a].getAttribute('cx'), ay = +nodeEls[a].getAttribute('cy');
         const bx = +nodeEls[b].getAttribute('cx'), by = +nodeEls[b].getAttribute('cy');
         const l = linkEls[i];
+        const d = Math.hypot(ax-bx, ay-by);
         l.setAttribute('x1', ax); l.setAttribute('y1', ay);
         l.setAttribute('x2', bx); l.setAttribute('y2', by);
-        const d = Math.hypot(ax-bx, ay-by);
         l.setAttribute('stroke-dasharray', d.toFixed(1));
         l.setAttribute('stroke-dashoffset', (d*(1-q)).toFixed(1));
         l.style.opacity = (0.10 + 0.90*q).toFixed(2);
       }
     }
 
-    function loop(ts){
-      const t = (ts||0)/1000, dt = Math.max(0, t - state.last); state.last = t;
+    function computeProgress(){
+      const rect  = wrapper.getBoundingClientRect();
+      const vh    = innerHeight || document.documentElement.clientHeight;
+      const total = Math.max(1, rect.height - vh);
+      state.pTarget = Math.max(0, Math.min(1, (0 - rect.top) / total));
+    }
 
-      // starfield: tiny twinkle
-      if(!state.reduced){
-        const tw = (arr, f1, f2, a1, a2) => arr.forEach(s=>{
+    function loop(ts){
+      if (state.reduced) { state.s = 1; render(); cancelAnimationFrame(rafId); rafId=null; return; }
+      const t = (ts||0)/1000, dt = Math.max(0, t - state.last); state.last = t;
+      if(isActive){
+        const tw = (arr, f1, f2, a1) => arr.forEach(s=>{
           const dx = Math.sin(t*f1 + s.x*0.002)*s.sp*a1;
           s.el.setAttribute('cx', (s.x + dx).toFixed(1));
           s.el.setAttribute('opacity', (0.45 + 0.22*Math.abs(Math.sin(t*f2 + s.x*0.01))).toFixed(2));
         });
-        tw(farStars, 0.20, 1.4, 0.30, 0.22);
-        tw(nearStars,0.35, 2.0, 0.60, 0.28);
+        tw(farStars, 0.20, 1.4, 0.30);
+        tw(nearStars,0.35, 2.0, 0.60);
       }
-
-      // scroll progress (0..1)
-      const rect = wrapper.getBoundingClientRect();
-      const vh   = innerHeight || document.documentElement.clientHeight;
-      const total= Math.max(1, rect.height - vh);
-      state.p = clamp01((0 - rect.top) / total);
-
-      // critically-damped smoothing (constant feel up or down)
-      const TAU = 0.18;
-      const k = 1 - Math.exp(-dt / TAU);
-      state.s = state.s + (state.p - state.s) * k;
-
+      const TAU = 0.18; const k = 1 - Math.exp(-dt / TAU);
+      state.s = state.s + (state.pTarget - state.s) * k;
+      if (!state.latched && state.s >= 0.88) { state.latched = true; }
+      if (state.latched) { state.s = 1; }
       render();
-      requestAnimationFrame(loop);
+      rafId = requestAnimationFrame(loop);
     }
 
+    const io = new IntersectionObserver((entries)=>{
+      isActive = !!entries[0]?.isIntersecting;
+      if(isActive && rafId==null) { rafId = requestAnimationFrame(loop); }
+    }, { root: null, rootMargin: '200px 0px 200px 0px', threshold: 0 });
+    io.observe(wrapper);
+
+    const onScroll = () => computeProgress();
+    const onResize = () => { computeProgress(); fitHeroToViewport(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('orientationchange', onResize);
+
+    computeProgress();
     requestAnimationFrame(loop);
+
+    window.addEventListener('pagehide', () => {
+      io.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', onResize);
+      if(rafId) cancelAnimationFrame(rafId);
+    }, { once: true });
   })();
   </script>
 
-  <noscript>
-    <style>#hero-wrapper{ height: 100vh !important }</style>
-  </noscript>
-</section>
+  <script>
+  // Auto-fit to one screen if content is taller than viewport (throttled)
+  (() => {
+    const hero  = document.getElementById('hero');
+    const stack = hero?.querySelector('.stack');
+    if(!hero || !stack) return;
 
+    let scheduled = false;
+    function fitHeroToViewport(){
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(()=>{
+        scheduled = false;
+        hero.classList.remove('fit');
+        hero.style.removeProperty('--fit-scale');
+        hero.style.removeProperty('--fit-offset');
 
+        const styles = getComputedStyle(hero);
+        const padTop = parseFloat(styles.paddingTop) || 0;
+        const padBot = parseFloat(styles.paddingBottom) || 0;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const available = Math.max(0, vh - padTop - padBot);
+        const contentH = stack.scrollHeight;
+        if (contentH > available && available > 0){
+          const scale = Math.max(0.8, Math.min(1, available / contentH));
+          const afterH = contentH * scale;
+          const offset = Math.max(0, (available - afterH) / 2);
+          hero.style.setProperty('--fit-scale', scale.toFixed(3));
+          hero.style.setProperty('--fit-offset', offset.toFixed(1) + 'px');
+          hero.classList.add('fit');
+        }
+      });
+    }
 
+    const ro = new ResizeObserver(()=>fitHeroToViewport());
+    ro.observe(stack);
+    window.addEventListener('load', fitHeroToViewport, { once: true });
+    window.addEventListener('resize', fitHeroToViewport, { passive: true });
+    window.addEventListener('orientationchange', fitHeroToViewport);
+    try{ document.fonts?.ready?.then(fitHeroToViewport); }catch(_){ }
+    window.addEventListener('pagehide', ()=>{ ro.disconnect(); }, { once:true });
+  })();
+  </script>
 
+  <script>
+  // Smooth in-page anchor navigation + focus management
+  (()=>{
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[href^="#"]');
+      if(!a) return;
+      const id = a.getAttribute('href').slice(1);
+      if(!id) return;
+      const target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      const prev = target.getAttribute('tabindex');
+      target.setAttribute('tabindex','-1');
+      target.focus({ preventScroll: true });
+      const onBlur = ()=>{ if(prev === null) target.removeAttribute('tabindex'); else target.setAttribute('tabindex', prev); target.removeEventListener('blur', onBlur); };
+      target.addEventListener('blur', onBlur);
+    });
+  })();
+  </script>
 
+  <noscript><style>#hero-wrapper{ min-height: 100vh !important }</style></noscript>
+  </section>
 
-
-
-
-
-
-
-
-  <!-- Our Offerings Section -->
+  <!-- Services -->
   <section id="services" style="padding:80px 20px; max-width:1100px; margin:0 auto;">
-  <h2 style="font-family:'Playfair Display', Georgia, serif; font-size:clamp(28px,4vw,40px); color:#111827; text-align:center; margin-bottom:28px;">
-    Our Offerings
-  </h2>
+    <h2 style="font-family:'Playfair Display', Georgia, serif; font-size:clamp(28px,4vw,40px); color:#111827; text-align:center; margin-bottom:28px;">
+      The Sandbox: What You’ll Experience
+    </h2>
     <div class="container" data-aos="fade-up">
       <div class="card-grid">
-        
-        <!-- Phase 1: Personal Clarity -->
+        <!-- Phase 1 -->
         <div class="glass-card" tabindex="0" aria-label="Personal Clarity" data-aos="fade-up" data-aos-delay="50">
           <h3>Personal Clarity</h3>
-          <p>
-            Discover what truly matters to you.<br>
-            Create your Anchoring Map, a personal compass for decisions, focus, and growth.
-          </p>
+          <p>Discover what truly matters to you.<br>Create your Anchoring Map, a personal compass for decisions, focus, and growth.</p>
           <div class="video-thumb">
-            <video src="vid1.mp4" controls></video>
+            <video src="vid1.mp4" preload="metadata" controls playsinline width="640" height="360"></video>
           </div>
         </div>
-        
-        <!-- Phase 2: Real-World Confidence -->
+        <!-- Phase 2 -->
         <div class="glass-card" tabindex="0" aria-label="Real-World Confidence" data-aos="fade-up" data-aos-delay="150">
           <h3>Real-World Confidence</h3>
-          <p>
-            Turn ideas into action.<br>
-            Work on a meaningful project, test it with real people, and build a validated Action Plan/MVP.
-          </p>
+          <p>Turn ideas into action.<br>Work on a meaningful project, test it with real people, and build a validated Action Plan/MVP.</p>
           <div class="video-thumb">
-            <video src="vid2.mp4" controls></video>
+            <video src="vid2.mp4" preload="metadata" controls playsinline width="640" height="360"></video>
           </div>
         </div>
-        
-        <!-- Phase 3: Conscious Leadership -->
+        <!-- Phase 3 -->
         <div class="glass-card" tabindex="0" aria-label="Conscious Leadership" data-aos="fade-up" data-aos-delay="250">
           <h3>Conscious Leadership</h3>
-          <p>
-            Design your own leadership narrative.<br>
-            Gain tools for collaboration, influence, and creating expert networks. Own your career, build your company, and lead your life.
-          </p>
+          <p>Design your own leadership narrative.<br>Gain tools for collaboration, influence, and creating expert networks. Own your career, build your company, and lead your life.</p>
           <div class="video-thumb">
-            <video src="vid3.mp4" controls></video>
+            <video src="vid3.mp4" preload="metadata" controls playsinline width="640" height="360"></video>
           </div>
         </div>
-
       </div>
     </div>
-</section>
+  </section>
 
+  <!-- 12-Week Road Map -->
+  <section id="roadmap" class="roadmap-section">
+    <style>
+      :root{ --rm-card-radius: 20px; --rm-shadow-sm: 0 6px 18px rgba(15,23,42,.08); --rm-shadow-md: 0 12px 32px rgba(15,23,42,.12); --rm-border: #dbe3ef; --rm-ink: #0b1b3a; --rm-ink-2: #334155; --rm-grid: rgba(0,0,0,.05); --rm-sep: #94a3b8; --rm-bg: var(--brand-bg, #eef2ff); }
+      .roadmap-section{ position: relative; background: var(--rm-bg); padding: clamp(3rem, 6vw, 4.5rem) 0; content-visibility: auto; contain-intrinsic-size: 800px; }
+      .roadmap-section::before{ content:""; position:absolute; inset:0; pointer-events:none; background: repeating-linear-gradient(0deg, var(--rm-grid) 0 1px, transparent 1px 16px), repeating-linear-gradient(90deg, var(--rm-grid) 0 1px, transparent 1px 16px); opacity:.18; }
+      .roadmap-head{ text-align:center; max-width:900px; margin:0 auto 1.1rem; }
+      .roadmap-map{ position:relative; border-radius:var(--rm-card-radius); overflow:hidden; background:var(--rm-bg); box-shadow: var(--rm-shadow-sm), inset 0 1px 0 rgba(255,255,255,.75); padding-bottom:160px; isolation:isolate; }
+      .roadmap-map::before{ content:""; position:absolute; inset:0; pointer-events:none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 14px), repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 1px, transparent 1px 14px); opacity:.10; }
+      .phase-sep-overlay{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+      .phase-sep-overlay span{ position:absolute; top:0; bottom:0; width:2px; background: repeating-linear-gradient(to bottom, var(--rm-sep) 0 8px, transparent 8px 18px); opacity:.75; transform: translateX(-1px); }
+      #roadSvg{ width:100%; height:auto; display:block; }
+      #roadBase{ stroke:#e5edf7; stroke-width:64; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+      #roadDash{ stroke:#ffffff; stroke-width:8; stroke-linecap:round; stroke-dasharray:10 18; opacity:.98; fill:none; }
+      .waypoint circle{ stroke:#94a3b8; stroke-width:2; cursor:pointer; transition: transform .12s ease, r .12s ease, opacity .12s ease; will-change: transform; }
+      .waypoint[data-phase="1"] circle{ fill:#7dd3fc; } .waypoint[data-phase="2"] circle{ fill:#60a5fa; } .waypoint[data-phase="3"] circle{ fill:#a78bfa; }
+      .waypoint:hover circle{ transform:translateY(-2px); }
+      .waypoint[aria-current="step"] circle{ r:11; }
+      .waypoint:focus-visible circle{ outline:none; stroke:#1e3a8a; stroke-width:3; }
+      .wp-num{ fill:var(--rm-ink); font:700 11px/1 Inter, system-ui, sans-serif; pointer-events:none; }
+      .wp-tag{ fill:#1f2937; font:600 11px/1 Inter, system-ui, sans-serif; pointer-events:none; }
+      .roadmap-panel{ position:absolute; right:18px; bottom:24px; z-index:5; width:min(460px, 95%); background:#fff; color:#0f172a; border:1px solid var(--rm-border); border-radius:16px; padding:1rem 1.1rem 1.15rem; box-shadow: var(--rm-shadow-md); }
+      .roadmap-panel.hidden{ display:none; }
+      .rp-badge{ display:inline-flex; align-items:center; justify-content:center; padding:.28rem .7rem; border-radius:999px; font-weight:700; font-size:.95rem; letter-spacing:.015em; background:linear-gradient(93deg, var(--blue, #2563eb) 65%, var(--accent, #4f46e5) 100%); color:#fff; margin-bottom:.4rem; }
+      .roadmap-panel h3{ margin:.2rem 0 .6rem; font-size:1.22rem; color:var(--rm-ink); font-weight:700; }
+      .rp-list{ margin:0; padding-left:1.1rem; }
+      .rp-list li{ margin:.38rem 0; color:var(--rm-ink-2); font-size:.98rem; line-height:1.45; }
+      .roadmap-arrow{ position:absolute; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#ffffffcc; border:1px solid #e2e8f0; color:var(--rm-ink); cursor:pointer; z-index:6; backdrop-filter: blur(4px); transition: transform .12s ease, box-shadow .18s ease; }
+      .roadmap-arrow:hover{ transform:translateY(-50%) scale(1.05); box-shadow:0 6px 14px rgba(15,23,42,.1); }
+      .roadmap-arrow:focus-visible{ outline:2px solid #bfdbfe; outline-offset:2px; }
+      .roadmap-prev{ left: clamp(6px, 2vw, 18px); } .roadmap-next{ right: clamp(6px, 2vw, 18px); }
+      .phase-cards{ display:grid; gap:1.1rem; margin-top:1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .phase-card{ background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:1rem 1.1rem; box-shadow: var(--rm-shadow-sm); }
+      .phase-card h3{ margin:.1rem 0 .4rem; font-size:1.12rem; color:var(--rm-ink); }
+      .phase-card p{ margin:0 0 .4rem; color:var(--rm-ink-2); }
+      .phase-card ul{ margin:.2rem 0 0; padding-left:1.1rem; color:#475569; }
+      .phase-card[data-phase="1"]{ border-top:4px solid #7dd3fc; } .phase-card[data-phase="2"]{ border-top:4px solid #60a5fa; } .phase-card[data-phase="3"]{ border-top:4px solid #a78bfa; }
+      @media (max-width: 980px){ .roadmap-map{ padding-bottom:0; } .roadmap-panel{ position:static; width:100%; margin-top:12px; box-shadow: var(--rm-shadow-sm); } .phase-sep-overlay span{ opacity:.6; } }
+      @media (prefers-reduced-motion: reduce){ .roadmap-arrow, .waypoint circle{ transition: none !important; transform: none !important; } }
+    </style>
 
-
-
-
-
-
-
-
-<!-- 12-Week Road Map -->
-<section id="roadmap" class="roadmap-section">
-  <style>
-    /* =========================
-       12-Week Roadmap (Production)
-       ========================= */
-
-    :root{
-      --rm-card-radius: 20px;
-      --rm-shadow-sm: 0 6px 18px rgba(15,23,42,.08);
-      --rm-shadow-md: 0 12px 32px rgba(15,23,42,.12);
-      --rm-border: #dbe3ef;
-      --rm-ink: #0b1b3a;
-      --rm-ink-2: #334155;
-      --rm-grid: rgba(0,0,0,.05);
-      --rm-sep: #94a3b8;
-      --rm-bg: var(--brand-bg, #eef2ff);
-    }
-
-    /* Section shell */
-    .roadmap-section{
-      position: relative;
-      background: var(--rm-bg);
-      padding: clamp(3rem, 6vw, 4.5rem) 0;
-      /* performance: only render when scrolled into view */
-      content-visibility: auto;
-      contain-intrinsic-size: 800px; /* fallback size to avoid layout jank */
-    }
-
-    /* Subtle, lightweight grid (cheaper than conic) */
-    .roadmap-section::before{
-      content:"";
-      position:absolute; inset:0;
-      pointer-events:none;
-      background:
-        repeating-linear-gradient(
-          0deg, var(--rm-grid) 0 1px, transparent 1px 16px
-        ),
-        repeating-linear-gradient(
-          90deg, var(--rm-grid) 0 1px, transparent 1px 16px
-        );
-      opacity:.18;
-    }
-
-    /* Head */
-    .roadmap-head{ text-align:center; max-width:900px; margin:0 auto 1.1rem; }
-    .roadmap-head .section-title{ margin-bottom:.35rem; }
-    .roadmap-subtitle{ color:var(--rm-ink-2); font-size:1.05rem; }
-
-    /* Card with roadmap */
-    .roadmap-map{
-      position:relative;
-      border-radius:var(--rm-card-radius);
-      overflow:hidden;
-      background:var(--rm-bg);
-      box-shadow: var(--rm-shadow-sm), inset 0 1px 0 rgba(255,255,255,.75);
-      padding-bottom:160px; /* space for floating panel */
-      isolation:isolate; /* keeps overlay/panel stacking predictable */
-    }
-
-    /* crisp, very faint inner texture (optional) */
-    .roadmap-map::before{
-      content:"";
-      position:absolute; inset:0;
-      pointer-events:none;
-      background:
-        repeating-linear-gradient(
-          0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 14px
-        ),
-        repeating-linear-gradient(
-          90deg, rgba(0,0,0,.06) 0 1px, transparent 1px 14px
-        );
-      opacity:.10;
-    }
-
-    /* Full-height phase separators (overlay only) */
-    .phase-sep-overlay{
-      position:absolute; inset:0; z-index:2; pointer-events:none;
-    }
-    .phase-sep-overlay span{
-      position:absolute; top:0; bottom:0; width:2px;
-      /* smoother than dashed borders; scales well */
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          var(--rm-sep) 0 8px,
-          transparent 8px 18px
-        );
-      opacity:.75;
-      transform: translateX(-1px); /* center 2px column on left position */
-    }
-
-    /* SVG */
-    #roadSvg{ width:100%; height:auto; display:block; }
-    #roadBase{
-      stroke:#e5edf7; stroke-width:64;
-      stroke-linecap:round; stroke-linejoin:round; fill:none;
-    }
-    #roadDash{
-      stroke:#ffffff; stroke-width:8;
-      stroke-linecap:round; stroke-dasharray:10 18;
-      opacity:.98; fill:none;
-    }
-
-    /* Waypoints */
-    .waypoint circle{
-      stroke:#94a3b8; stroke-width:2; cursor:pointer;
-      transition: transform .12s ease, r .12s ease, opacity .12s ease;
-      will-change: transform;
-    }
-    .waypoint[data-phase="1"] circle{ fill:#7dd3fc; }
-    .waypoint[data-phase="2"] circle{ fill:#60a5fa; }
-    .waypoint[data-phase="3"] circle{ fill:#a78bfa; }
-    .waypoint:hover circle{ transform:translateY(-2px); }
-    .waypoint[aria-current="step"] circle{ r:11; }
-    .waypoint:focus-visible circle{ outline:none; stroke:#1e3a8a; stroke-width:3; }
-    .wp-num{ fill:var(--rm-ink); font:700 11px/1 var(--font-body); pointer-events:none; }
-    .wp-tag{ fill:#1f2937; font:600 11px/1 var(--font-body); pointer-events:none; }
-
-    /* Info panel */
-    .roadmap-panel{
-      position:absolute; right:18px; bottom:24px; z-index:5;
-      width:min(460px, 95%);
-      background:#fff; color:#0f172a;
-      border:1px solid var(--rm-border); border-radius:16px;
-      padding:1rem 1.1rem 1.15rem;
-      box-shadow: var(--rm-shadow-md);
-    }
-    .roadmap-panel.hidden{ display:none; }
-    .rp-badge{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:.28rem .7rem; border-radius:999px; font-weight:700; font-size:.95rem; letter-spacing:.015em;
-      background:linear-gradient(93deg, var(--blue, #2563eb) 65%, var(--accent, #4f46e5) 100%);
-      color:#fff; margin-bottom:.4rem;
-    }
-    .roadmap-panel h3{ margin:.2rem 0 .6rem; font-size:1.22rem; color:var(--rm-ink); font-weight:700; }
-    .rp-list{ margin:0; padding-left:1.1rem; }
-    .rp-list li{ margin:.38rem 0; color:var(--rm-ink-2); font-size:.98rem; line-height:1.45; }
-
-    /* Arrows */
-    .roadmap-arrow{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:46px; height:46px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      background:#ffffffcc; border:1px solid #e2e8f0; color:var(--rm-ink);
-      cursor:pointer; z-index:6; backdrop-filter: blur(4px);
-      transition: transform .12s ease, box-shadow .18s ease;
-    }
-    .roadmap-arrow:hover{ transform:translateY(-50%) scale(1.05); box-shadow:0 6px 14px rgba(15,23,42,.1); }
-    .roadmap-arrow:focus-visible{ outline:2px solid #bfdbfe; outline-offset:2px; }
-    .roadmap-prev{ left: clamp(6px, 2vw, 18px); }
-    .roadmap-next{ right: clamp(6px, 2vw, 18px); }
-
-    /* Phase summary cards */
-    .phase-cards{
-      display:grid; gap:1.1rem; margin-top:1.25rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-    .phase-card{
-      background:#fff; border:1px solid #e2e8f0; border-radius:16px;
-      padding:1rem 1.1rem; box-shadow: var(--rm-shadow-sm);
-    }
-    .phase-card h3{ margin:.1rem 0 .4rem; font-size:1.12rem; color:var(--rm-ink); }
-    .phase-card p{ margin:0 0 .4rem; color:var(--rm-ink-2); }
-    .phase-card ul{ margin:.2rem 0 0; padding-left:1.1rem; color:#475569; }
-    .phase-card[data-phase="1"]{ border-top:4px solid #7dd3fc; }
-    .phase-card[data-phase="2"]{ border-top:4px solid #60a5fa; }
-    .phase-card[data-phase="3"]{ border-top:4px solid #a78bfa; }
-
-    /* Reduced motion & mobile polish */
-    @media (max-width: 980px){
-      .roadmap-map{ padding-bottom:0; }
-      .roadmap-panel{
-        position:static; width:100%; margin-top:12px;
-        box-shadow: var(--rm-shadow-sm);
-      }
-      .phase-sep-overlay span{ opacity:.6; } /* softer on small screens */
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .roadmap-arrow,
-      .waypoint circle{
-        transition: none !important;
-        transform: none !important;
-      }
-    }
-  </style>
-
-  <div class="container">
-    <div class="roadmap-head">
-      <h2 class="section-title font-playfair">Your 12-Week Journey</h2>
-      <p class="roadmap-subtitle">Three phases from Anchoring → Exploration → Rooting</p>
-    </div>
-
-    <div class="roadmap-map">
-      <button class="roadmap-arrow roadmap-prev" type="button" aria-label="Previous week">‹</button>
-      <button class="roadmap-arrow roadmap-next" type="button" aria-label="Next week">›</button>
-
-      <!-- SVG: decorative parts are aria-hidden; waypoints announced via panel -->
-      <svg
-        id="roadSvg"
-        viewBox="0 0 1680 520"
-        role="img"
-        aria-label="Sthir 12-week roadmap"
-        preserveAspectRatio="xMidYMid meet">
-        <g aria-hidden="true">
-          <path id="roadBase" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
-          <path id="roadDash" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
-          <circle cx="40" cy="420" r="6" fill="var(--rm-ink)"></circle>
-          <text x="53" y="478" font-size="18" fill="var(--rm-ink)">Start</text>
-          <text x="1520" y="170" font-size="18" fill="var(--rm-ink)">🏁 Finish</text>
-        </g>
-
-        <!-- waypoints injected by JS -->
-        <g id="waypoints"></g>
-      </svg>
-
-      <!-- full-height separators overlay (single source of truth) -->
-      <div class="phase-sep-overlay" aria-hidden="true">
-        <!-- match your old x=560 and x=1120 in a 1680 viewBox -->
-        <span style="left:33.333%"></span>
-        <span style="left:66.666%"></span>
+    <div class="container">
+      <div class="roadmap-head">
+        <h2 class="section-title font-playfair">Your 12-Week Journey</h2>
+        <p class="roadmap-subtitle">Three phases from Anchoring → Exploration → Rooting</p>
       </div>
 
-      <!-- info panel (updated via JS) -->
-      <aside id="roadPanel" class="roadmap-panel hidden" aria-live="polite">
-        <div class="rp-badge" id="rpWeek">Week 1</div>
-        <h3 id="rpTitle">Title</h3>
-        <ul class="rp-list" id="rpList"></ul>
-      </aside>
+      <div class="roadmap-map">
+        <button class="roadmap-arrow roadmap-prev" type="button" aria-label="Previous week">‹</button>
+        <button class="roadmap-arrow roadmap-next" type="button" aria-label="Next week">›</button>
+
+        <svg id="roadSvg" viewBox="0 0 1680 520" role="img" aria-label="Sthir 12-week roadmap" preserveAspectRatio="xMidYMid meet">
+          <g aria-hidden="true">
+            <path id="roadBase" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
+            <path id="roadDash" d="M 40 420 C 300 360, 480 300, 660 280 S 1060 320, 1245 290 S 1500 260, 1580 190" />
+            <circle cx="40" cy="420" r="6" fill="var(--rm-ink)"></circle>
+            <text x="53" y="478" font-size="18" fill="var(--rm-ink)">Start</text>
+            <text x="1520" y="170" font-size="18" fill="var(--rm-ink)">🏁 Finish</text>
+          </g>
+          <g id="waypoints"></g>
+        </svg>
+
+        <div class="phase-sep-overlay" aria-hidden="true">
+          <span style="left:33.333%"></span>
+          <span style="left:66.666%"></span>
+        </div>
+
+        <aside id="roadPanel" class="roadmap-panel hidden" aria-live="polite">
+          <div class="rp-badge" id="rpWeek">Week 1</div>
+          <h3 id="rpTitle">Title</h3>
+          <ul class="rp-list" id="rpList"></ul>
+        </aside>
+      </div>
+
+      <div class="phase-cards" aria-label="Phase summaries">
+        <article class="phase-card" data-phase="1">
+          <h3>Phase 1 · Anchoring</h3>
+          <p>Notice patterns, slow down, and choose your focus.</p>
+          <ul>
+            <li>Autopilot audit &amp; attention science</li>
+            <li>Create your personal Anchoring Map</li>
+            <li>Commit a problem space to explore</li>
+          </ul>
+        </article>
+        <article class="phase-card" data-phase="2">
+          <h3>Phase 2 · Exploration</h3>
+          <p>Run small tests, collaborate, and learn from people.</p>
+          <ul>
+            <li>Bold real-world experiments</li>
+            <li>Team charter &amp; deep listening</li>
+            <li>Jobs-to-be-Done interviews &amp; synthesis</li>
+          </ul>
+        </article>
+        <article class="phase-card" data-phase="3">
+          <h3>Phase 3 · Rooting</h3>
+          <p>Shape a point of view and ship a tangible outcome.</p>
+          <ul>
+            <li>Influence &amp; network building</li>
+            <li>MVP sprint with feedback loops</li>
+            <li>Leadership commitment &amp; next steps</li>
+          </ul>
+        </article>
+      </div>
     </div>
 
-    <!-- Phase summaries -->
-    <div class="phase-cards" aria-label="Phase summaries">
-      <article class="phase-card" data-phase="1">
-        <h3>Phase 1 · Anchoring</h3>
-        <p>Notice patterns, slow down, and choose your focus.</p>
-        <ul>
-          <li>Autopilot audit &amp; attention science</li>
-          <li>Create your personal Anchoring Map</li>
-          <li>Commit a problem space to explore</li>
-        </ul>
-      </article>
-      <article class="phase-card" data-phase="2">
-        <h3>Phase 2 · Exploration</h3>
-        <p>Run small tests, collaborate, and learn from people.</p>
-        <ul>
-          <li>Bold real-world experiments</li>
-          <li>Team charter &amp; deep listening</li>
-          <li>Jobs-to-be-Done interviews &amp; synthesis</li>
-        </ul>
-      </article>
-      <article class="phase-card" data-phase="3">
-        <h3>Phase 3 · Rooting</h3>
-        <p>Shape a point of view and ship a tangible outcome.</p>
-        <ul>
-          <li>Influence &amp; network building</li>
-          <li>MVP sprint with feedback loops</li>
-          <li>Leadership commitment &amp; next steps</li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
+    <script>
+    // Roadmap: generate 12 waypoints and interactive panel
+    (()=>{
+      const svg = document.getElementById('roadSvg');
+      const path = document.getElementById('roadDash');
+      const wpsG = document.getElementById('waypoints');
+      const panel = document.getElementById('roadPanel');
+      const rpWeek = document.getElementById('rpWeek');
+      const rpTitle = document.getElementById('rpTitle');
+      const rpList = document.getElementById('rpList');
+      const prevBtn = document.querySelector('.roadmap-prev');
+      const nextBtn = document.querySelector('.roadmap-next');
+      if(!svg || !path || !wpsG || !panel) return;
 
+      const weeks = [
+        { phase:1, title:'Anchor Awareness', items:['Autopilot audit','Daily reflection habit','Attention science basics'] },
+        { phase:1, title:'Values & Energy', items:['Core values sketch','Energy mapping','Focus constraints'] },
+        { phase:1, title:'Anchoring Map', items:['Draft Anchoring Map','Feedback cycle','Commit problem space'] },
+        { phase:2, title:'Exploration Setup', items:['Team charter','Experiment backlog','Interview plan'] },
+        { phase:2, title:'First Experiments', items:['Smoke tests','JTBD interviews','Synthesis workshop'] },
+        { phase:2, title:'Signals & Systems', items:['Define signals','Noticing practice','Second round tests'] },
+        { phase:2, title:'Prototype Sprint', items:['Low‑fi prototype','Usability passes','Scope MVP'] },
+        { phase:3, title:'Point of View', items:['Narrative frame','Story spine','Influence mapping'] },
+        { phase:3, title:'MVP Build', items:['MVP v1','Feedback loops','Prioritize fixes'] },
+        { phase:3, title:'Network & Leverage', items:['Expert outreach','Peer review','Ask/Offer matrix'] },
+        { phase:3, title:'Ship & Share', items:['Publish outcome','Demo day','Retrospective'] },
+        { phase:3, title:'Next Steps', items:['Leadership commitment','Personal OS','Roadmap beyond'] }
+      ];
+
+      const totalLen = path.getTotalLength();
+      const positions = weeks.map((_,i)=> (i+0.8) / (weeks.length+0.6)); // slightly inset from ends
+
+      const nodes = positions.map((t,i)=>{
+        const p = path.getPointAtLength(totalLen * t);
+        const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+        g.setAttribute('class','waypoint');
+        g.dataset.index = i;
+        g.dataset.phase = weeks[i].phase;
+        g.setAttribute('tabindex', i===0? '0' : '-1');
+        g.setAttribute('role','button');
+        g.setAttribute('aria-label',`Week ${i+1}: ${weeks[i].title}`);
+        g.setAttribute('transform', `translate(${p.x},${p.y})`);
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('r','9');
+        const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+        label.setAttribute('class','wp-num');
+        label.setAttribute('text-anchor','middle');
+        label.setAttribute('y','-14');
+        label.textContent = (i+1);
+        g.appendChild(c); g.appendChild(label);
+        wpsG.appendChild(g);
+        return g;
+      });
+
+      let idx = 0;
+      const setActive = (n)=>{
+        idx = Math.max(0, Math.min(weeks.length-1, n));
+        nodes.forEach((el,i)=>{
+          if(i===idx){ el.setAttribute('aria-current','step'); el.setAttribute('tabindex','0'); }
+          else{ el.removeAttribute('aria-current'); el.setAttribute('tabindex','-1'); }
+        });
+        const w = weeks[idx];
+        rpWeek.textContent = `Week ${idx+1}`;
+        rpTitle.textContent = w.title;
+        rpList.innerHTML = w.items.map(li=>`<li>${li}</li>`).join('');
+        panel.classList.remove('hidden');
+        nodes[idx].focus({ preventScroll:true });
+      };
+
+      nodes.forEach((el,i)=>{
+        el.addEventListener('click', ()=> setActive(i));
+        el.addEventListener('keydown', (e)=>{
+          if(e.key==='Enter' || e.key===' '){ e.preventDefault(); setActive(i); }
+          if(e.key==='ArrowRight'){ e.preventDefault(); setActive(i+1); }
+          if(e.key==='ArrowLeft'){ e.preventDefault(); setActive(i-1); }
+        });
+      });
+      prevBtn?.addEventListener('click', ()=> setActive(idx-1));
+      nextBtn?.addEventListener('click', ()=> setActive(idx+1));
+
+      // Initialize lazily when in view to avoid first-paint cost
+      const io = new IntersectionObserver((ents)=>{
+        if(ents[0]?.isIntersecting){ setActive(0); io.disconnect(); }
+      },{ root:null, threshold:0, rootMargin:'100px 0px' });
+      io.observe(svg);
+    })();
+    </script>
+  </section>
 
   <!-- Philosophy Section -->
   <section id="philosophy" class="section philosophy-bg">
     <div class="container" data-aos="fade-up">
       <h2 class="section-title font-playfair">The Meaning of Sthir (स्थिर)</h2>
       <h3 class="philosophy-subtitle">
-        Sthir is <span id="word1">स्थिर</span> in <span id="word2">Urdu</span>
+        Sthir is <span lang="sa" aria-label="Sanskrit">स्थिर</span> in Sanskrit
       </h3>
       <p class="philosophy-desc">
         In Sanskrit, 'Sthir' means stable, calm, and constant. It's the foundation upon which great things are built. Before you can build a successful company, you must first build a resilient self. We help you find your center, your 'Sthir', so you can stand tall and lead with confidence.
@@ -770,16 +683,11 @@
     </div>
   </section>
 
-
   <!-- AI Powered Tools Section -->
   <section id="ai-tools" class="section glass-section">
     <div class="container" data-aos="fade-up">
-      <h2 class="section-title font-playfair">
-        ✨ <s>(Artificial)</s> Mindfully used Technology Intelligence Powered Tools
-      </h2>
-      
+      <h2 class="section-title font-playfair">✨ <s>(Artificial)</s> Mindfully used Technology Intelligence Powered Tools</h2>
       <div class="ai-tools-grid">
-        <!-- AI Validator -->
         <div class="glass-card" data-aos="fade-right">
           <h3>AI Business Idea Validator</h3>
           <p>Have a business idea? Get instant, constructive feedback from our AI mentor.</p>
@@ -790,7 +698,6 @@
           <div id="validator-loader" class="loader hidden" aria-live="polite"></div>
           <div id="validator-output" class="output-box hidden" aria-live="polite"></div>
         </div>
-        <!-- Leadership Tip -->
         <div class="glass-card" data-aos="fade-left">
           <h3>Personalized Leadership Tip</h3>
           <p>Get a unique, actionable leadership tip powered by AI.</p>
@@ -805,10 +712,10 @@
   </section>
   
   <!-- Testimonials Section -->
-  <section id="testimonials" class="testimonial-section" aria-label="What our students say">
+  <section id="testimonials" class="testimonial-section" aria-label="Reflections from the Circle">
     <div class="container">
       <header class="section-head">
-        <h2 class="section-title">What Our Students Say</h2>
+        <h2 class="section-title">Reflections from the Circle</h2>
       </header>
 
       <!-- Viewport (hides overflow) -->
@@ -896,7 +803,7 @@
   <section class="faq">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Frequently Asked Questions</h2>
+            <h2 class="section-title">Still wondering?</h2>
         </div>
         
         <div class="faq-list">
